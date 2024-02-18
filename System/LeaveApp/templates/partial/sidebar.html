@@ -1,0 +1,64 @@
+{% load static %} 
+
+<!-- BEGIN scrollbar -->
+<div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
+    <!-- BEGIN menu -->
+    <div class="menu">
+        <div class="menu-profile">
+            <a href="javascript:;" class="menu-profile-link" data-toggle="app-sidebar-profile"
+                data-target="#appSidebarProfileMenu">
+                <div class="menu-profile-cover with-shadow"></div>
+                <div class="menu-profile-image">
+                    <!-- <img src={% static 'assets/img/user/user-13.jpg' %} alt="" /> -->
+                </div>
+
+            </a>
+        </div>
+
+        <!-- <div class="menu-header">Navigation</div> -->
+        <div class="menu-header"></div>
+        <div class="menu-item has-sub">
+            <a href="javascript:;" class="menu-link">
+                <div class="menu-icon">
+                    <i class="fa fa-sitemap"></i>
+                </div>
+                <div class="menu-text">Dashboard</div>
+                <div class="menu-caret"></div>
+            </a>
+            <div class="menu-submenu">
+                <div class="menu-item">
+                    <a href="index.html" class="menu-link">
+                        <div class="menu-text">Dashboard v1</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="menu-item has-sub">
+            <a href="javascript:;" class="menu-link">
+                <div class="menu-icon">
+                    <i class="fa fa-gem"></i>
+                </div>
+                <div class="menu-text">UI Elements <span class="menu-label">NEW</span></div>
+                <div class="menu-caret"></div>
+            </a>
+            <!-- <div class="menu-submenu">
+                    <div class="menu-item">
+                        <a href="ui_general.html" class="menu-link">
+                            <div class="menu-text">General <i class="fa fa-paper-plane text-theme"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div> -->
+        </div>
+        <!-- BEGIN minify-button -->
+        <div class="menu-item d-flex">
+            <a href="javascript:;"
+                class="app-sidebar-minify-btn ms-auto d-flex align-items-center text-decoration-none"
+                data-toggle="app-sidebar-minify"><i class="fa fa-angle-double-left"></i></a>
+        </div>
+        <!-- END minify-button -->
+    </div>
+    <!-- END menu -->
+</div>
+<!-- END scrollbar -->
+

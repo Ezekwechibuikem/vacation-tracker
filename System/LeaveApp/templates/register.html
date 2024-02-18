@@ -1,0 +1,149 @@
+{% comment %} {% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Form{% block title %}{% endblock %}</title>
+    <!-- Add Bootstrap CSS -->
+    <link href="{% static 'dist/css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body>
+
+<form method="POST" action="">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="id_username" class="form-label">{{ registerform.username.label }}</label>
+        {{ registerform.username }}
+    </div>
+
+    <div class="mb-3">
+        <label for="id_email" class="form-label">{{ registerform.email.label }}</label>
+        {{ registerform.email }}
+    </div>
+
+    <div class="mb-3">
+        <label for="id_password1" class="form-label">{{ registerform.password1.label }}</label>
+        {{ registerform.password1 }}
+    </div>
+
+    <div class="mb-3">
+        <label for="id_password2" class="form-label">{{ registerform.password2.label }}</label>
+        {{ registerform.password2 }}
+    </div>
+
+    {{ registerform.errors }}
+
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
+
+<p class="mt-3">Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
+
+<!-- Add Bootstrap JS -->
+<script src="{% static 'dist/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html> {% endcomment %}
+
+{% load static %}
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Register{% block title %}
+        {% endblock %}
+    </title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	
+	<!-- ================== BEGIN core-css ================== -->
+	<link href={% static 'assets/css/vendor.min.css' %} rel="stylesheet" />
+	<link href={% static 'assets/css/default/app.min.css' %} rel="stylesheet" />
+	<!-- ================== END core-css ================== -->
+</head>
+<body class='pace-top'>
+	<!-- BEGIN #loader -->
+	<div id="loader" class="app-loader">
+		<span class="spinner"></span>
+	</div>
+	<!-- END #loader -->
+
+
+	<!-- BEGIN #app -->
+	<div id="app" class="app">
+		<!-- BEGIN register -->
+		<div class="register register-with-news-feed">
+			<!-- BEGIN news-feed -->
+			<div class="news-feed">
+                <div class="news-image" style="background-image: url('{% static "img/login-bg/login-bg-15.jpg" %}')"></div>
+				<div class="news-caption">
+					<h4 class="caption-title"><b>Color</b> Admin App</h4>
+					<p>
+						As a Color Admin app administrator, you use the Color Admin console to manage your organization’s account, such as add new users, manage security settings, and turn on the services you want your team to access.
+					</p>
+				</div>
+			</div>
+			<!-- END news-feed -->
+			
+			<!-- BEGIN register-container -->
+			<div class="register-container">
+				<!-- BEGIN register-header -->
+				<div class="register-header mb-25px h1">
+					<div class="mb-1">Sign Up</div>
+					<small class="d-block fs-15px lh-16">Create your Leave Account. It’s free and always will be.</small>
+				</div>
+				<!-- END register-header -->
+				
+				<!-- BEGIN register-content -->
+				<div class="register-content">
+					<form action="" method="POST" class="fs-13px">
+                        {% csrf_token %}
+						<div class="mb-3">
+							<label class="mb-2">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" class="form-control fs-13px" id="username" placeholder="Username" />
+						</div>
+						<div class="mb-3">
+							<label class="mb-2">Email <span class="text-danger">*</span></label>
+							<input type="email" name="email" class="form-control fs-13px" placeholder="Email address" />
+						</div>
+						<div class="mb-3">
+							<label class="mb-2">Password <span class="text-danger">*</span></label>
+							<input type="password" name="password1" class="form-control fs-13px" id="password1" placeholder="Enter Password" />
+						</div>
+						<div class="mb-4">
+							<label class="mb-2">Cpnfirm Password <span class="text-danger">*</span></label>
+							<input type="password" name="password2" class="form-control fs-13px" id="password2" placeholder="Confirm Password" />
+						</div>
+						{% comment %} <div class="form-check mb-4">
+							<input class="form-check-input" type="checkbox" value="" id="agreementCheckbox" />
+							<label class="form-check-label" for="agreementCheckbox">
+								By clicking Sign Up, you agree to our <a href="javascript:;">Terms</a> and that you have read our <a href="javascript:;">Data Policy</a>, including our <a href="javascript:;">Cookie Use</a>.
+							</label>
+						</div> {% endcomment %}
+						<div class="mb-4">
+							<button type="submit" class="btn btn-theme d-block w-100 btn-lg h-45px fs-13px">Sign Up</button>
+						</div>
+						<div class="mb-4 pb-5">
+							Already a member? Click <a href="{% url 'login' %}">here</a> to login.
+						</div>
+						{% comment %} <hr class="bg-gray-600 opacity-2" />
+						<p class="text-center text-gray-600">
+							&copy; PHIS3 All Right Reserved 2024
+						</p> {% endcomment %}
+					</form>
+				</div>
+				<!-- END register-content -->
+			</div>
+			<!-- END register-container -->
+		</div>
+		<!-- END register -->
+		<!-- BEGIN scroll-top-btn -->
+		<a href="javascript:;" class="btn btn-icon btn-circle btn-theme btn-scroll-to-top" data-toggle="scroll-to-top"><i class="fa fa-angle-up"></i></a>
+		<!-- END scroll-top-btn -->
+	</div>
+	<!-- END #app -->
+	
+	<!-- ================== BEGIN core-js ================== -->
+	<script src={% static 'assets/js/vendor.min.js' %}></script>
+	<script src={% static 'assets/js/app.min.js' %}></script>
+	<!-- ================== END core-js ================== -->
+</body>
+</html>
