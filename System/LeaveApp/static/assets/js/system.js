@@ -1,30 +1,20 @@
-document.addEventListener("DOMContentLoaded", function() {
-    var startDateInput = document.getElementById("start-date");
-    var endDateInput = document.getElementById("end-date");
-    var totalDaysInput = document.getElementById("total-days");
-    var resumptionDateInput = document.getElementById("resumption-date");
+function handleLeaveTypeChange() {
+    var selectBox = document.getElementById("type_name");
+    var otherLeaveInput = document.getElementById("other_leave_container"); // Changed the ID to match the container
+    var otherLeaveTextbox = document.getElementById("other_leave");
 
-    // Function to calculate number of days between two dates
-    function calculateNumberOfDays() {
-        var startDate = new Date(startDateInput.value);
-        var endDate = new Date(endDateInput.value);
-        var differenceInTime = endDate.getTime() - startDate.getTime();
-        var differenceInDays = differenceInTime / (1000 * 3600 * 24);
-        totalDaysInput.value = differenceInDays;
-
-        // Calculate resumption date
-        var resumptionDate = new Date(endDate);
-        resumptionDate.setDate(resumptionDate.getDate() + 1); // Add one day
-        if (resumptionDate.getDay() === 0 || resumptionDate.getDay() === 6) {
-            // If the next day is a weekend, move to the next working day
-            resumptionDate.setDate(resumptionDate.getDate() + (8 - resumptionDate.getDay()));
-        }
-        resumptionDateInput.value = resumptionDate.toDateString();
+    if (selectBox.value === "Other") {
+        // If "Other" is selected, show the "Other leave" text box and enable it
+        otherLeaveInput.style.display = "block"; // Show the container
+        otherLeaveTextbox.disabled = false; // Enable the input
+        otherLeaveTextbox.value = ""; // Clear the input value
+    } else {
+        // If any other option is selected, hide the "Other leave" text box and disable it
+        otherLeaveInput.style.display = "none"; // Hide the container
+        otherLeaveTextbox.disabled = true; // Disable the input
+        otherLeaveTextbox.value = ""; // Clear the input value
     }
+}
 
-    // Event listeners for date inputs
-    startDateInput.addEventListener("change", calculateNumberOfDays);
-    endDateInput.addEventListener("change", calculateNumberOfDays);
-});
 
 

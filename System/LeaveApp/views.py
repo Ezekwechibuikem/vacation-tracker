@@ -5,36 +5,43 @@ from . models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout 
-from django.contrib.auth.forms import UserCreationForm
 from .forms import RegisterForm
 from django.contrib import messages
 
-# @login_required
+@login_required
 def home(request):
     """Home page views function and its context"""
     context = {}
-    return render(request, 'index.html', context)
+    return render(request, 'LeaveApp/index.html', context)
 
-@csrf_exempt
+@login_required
+def dash_board(request):
+    """Home page views function and its context"""
+    context = {}
+    return render(request, 'LeaveApp/dashboard.html', context)
+
 def create_leave(request):
-    """leave create function"""
-    form = LeaveForm()
+    """View function to create a leave entry"""
+
     if request.method == "POST":
         form = LeaveForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse('Saved')
+            messages.success(request, 'Leave created successfully.')  # Provide a success message
+            return redirect('index')  # Redirect to the home page or leave list as needed
         else:
-            print(form.errors)
-            return HttpResponse('Form is not valid', status=400)
+            messages.error(request, 'Failed to create leave. Please check the form.')  # Provide an error message
     else:
-        return HttpResponse('Contact the developer for this error', status=405)
+        form = LeaveForm()
+        context = {'form': form}
+
+    return render(request, 'LeaveApp/create-leave.html', context)
     
 def leave_list(request):
     """leave list function"""
     # Employee = employee.objects.all()
     leaves = leave.objects.all()
-    return render(request, 'leave-list.html', {'leaves': leaves})
+    return render(request, 'LeaveApp/leave-list.html', {'leaves': leaves})
 
 def register_staff(request):
     """This view handles the staff registration route"""
@@ -45,16 +52,18 @@ def register_staff(request):
             form.save()
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
+            password2 = form.cleaned_data['password2']
             messages.success(request, ("Registration Successful!"))
-            user = authenticate(request, username=username, password=password)
+            user = authenticate(request, username=username, password=password, password2=password2)
             login(request, user)
             return redirect('index')
    
     context = {'form': form}
-    return render(request, 'register.html', context)
+    return render(request, 'registration/register.html', context)
 
 def login_staff(request):
     """This view handles the staff login route"""
+   
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -66,7 +75,7 @@ def login_staff(request):
             messages.success(request, ("There Was An Error Logging In, Try Again..."))
 
     else:
-            return render(request, 'login.html', {})
+            return render(request, 'registration/login.html', {})
         
 def logout_staff(request):
     """The view handles the staff logout route"""
