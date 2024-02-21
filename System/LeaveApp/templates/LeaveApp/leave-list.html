@@ -1,1 +1,40 @@
-<h1>list of all leaves<h1>
+{% extends 'LeaveApp/base.html' %}
+
+<title>Employee {% block title %}
+    {% endblock %}
+</title>
+
+{% block content %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Type Name</th>
+                <th>Other Leave</th>
+                <th>Comments</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Resumption Date</th>
+                <th>Days Taken</th>
+                <th>Remaining Days</th>
+                <th>Approved</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for leave in leaves %}
+            <tr>
+                <td>{{ leave.type_name }}</td>
+                <td>{{ leave.other_leave }}</td>
+                <td>{{ leave.comments }}</td>
+                <td>{{ leave.start_date }}</td>
+                <td>{{ leave.end_date }}</td>
+                <td>{{ leave.resumption_date }}</td>
+                <td>{{ leave.days_taken }}</td>
+                <td>{{ leave.remaining_days }}</td>
+                <td>{{ leave.approved }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'LeaveApp/base.html' %}
+
+<title>Employee {% block title %}
+    {% endblock %}
+</title>
+
+{% block content %}
+<form method="post" action="{% url 'update-emp' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+{% endblock content %}

@@ -32,7 +32,7 @@
 			</div>
 			<!-- BEGIN panel-body -->
             <div class="panel-body">
-                <form action="{% url 'create-leave' %}" method="post">
+                <form action="{% url 'create-leave' %}" method="POST">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-md-4">
@@ -95,16 +95,21 @@
                             <input class="form-control parsley-validated" type="text" id="entitlement" name="entitlement" placeholder="Staff Entitlement" data-required="true"  readonly />
                         </div>
                     </div>
-                    <div class="row">
-                        <label class=" col-md-4">Reason(s) for leave</label>
+
+                    <div class="col-lg-12">
+                        <label for="resumption-date" class="form-label col-form-label col-md-8">Reason(s) for leave<small>if necessary</small></label>
                     </div>
+
                     <div class="panel-body p-0">
                             <textarea class="textarea form-control" id="comments" placeholder="Enter text ..." rows="12"></textarea>
                     </div>
-                    <div class="col-md-12 text-end"> 
-                        <div class="btn-group" role="group" aria-label="Form buttons">
-                            <button type="button" class="btn btn-secondary">Cancel</button> <!-- Cancel button -->
-                            <button type="submit" class="btn btn-success">Submit</button> <!-- Submit button -->
+                    <div class="col-lg-12">
+                        Ensure the above details are correct before submitting...
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="col-md-12 text-end"> 
+                                <button type="button" class="btn btn-secondary">Cancel</button> 
+                                <button type="submit" class="btn btn-success">Submit</button> 
                         </div>
                     </div>
                 </form> 
