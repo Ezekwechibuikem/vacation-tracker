@@ -1,13 +1,37 @@
 {% extends 'LeaveApp/base.html' %}
 
-<title>Employee {% block title %}
+<title>Create Leave {% block title %}
     {% endblock %}
 </title>
 
 {% block content %}
-<form method="post" action="{% url 'update-emp' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
-</form>
-{% endblock content %}
+    <form id="myForm" method="post" action="{% url 'update-emp' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <!-- Button to trigger the modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Submit
+        </button>
+    </form>
+
+    <!-- Bootstrap Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirm Submission</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to submit this form?
+                </div>
+                <div class="modal-footer">
+                    <!-- Close button -->
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary" id="confirmSubmit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -18,7 +18,6 @@
 		<!-- BEGIN page-header -->
 		<h1 class="page-header">Leave Request <small>Verify the number of leave entitlement you have as an employee</small></h1>
 		<!-- END page-header -->
-	
 		<!-- BEGIN panel -->
 		<div class="panel panel-inverse">
 			<div class="panel-heading">
@@ -32,7 +31,7 @@
 			</div>
 			<!-- BEGIN panel-body -->
             <div class="panel-body">
-                <form action="{% url 'create-leave' %}" method="POST">
+                <form id="leaveForm" action="{% url 'create-leave' %}" method="POST">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-md-4">
@@ -77,7 +76,7 @@
                         <div class="col-lg-4">
                             <input class="form-control parsley-validated" type="text" id="Num_of_days" name="Num_of_days" placeholder="Number of days" data-required="true" readonly/>
                         </div>
-
+            
                     </div>
                     <div class="row">
                         <div class="col-lg-8">
@@ -95,11 +94,11 @@
                             <input class="form-control parsley-validated" type="text" id="entitlement" name="entitlement" placeholder="Staff Entitlement" data-required="true"  readonly />
                         </div>
                     </div>
-
+            
                     <div class="col-lg-12">
                         <label for="resumption-date" class="form-label col-form-label col-md-8">Reason(s) for leave<small>if necessary</small></label>
                     </div>
-
+            
                     <div class="panel-body p-0">
                             <textarea class="textarea form-control" id="comments" placeholder="Enter text ..." rows="12"></textarea>
                     </div>
@@ -108,12 +107,34 @@
                     </div>
                     <div class="col-lg-12">
                         <div class="col-md-12 text-end"> 
-                                <button type="button" class="btn btn-secondary">Cancel</button> 
-                                <button type="submit" class="btn btn-success">Submit</button> 
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal">Cancel</button> 
+                            <!-- Button to submit form -->
+                            <button type="button" class="btn btn-success" id="submitButton">Submit</button> 
                         </div>
                     </div>
                 </form> 
-            </div>
-
+            </div>
 		</div>
+        <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmModalLabel">Confirm Request</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you wish to submit?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button> 
+                        <!-- Button to submit form -->
+                        <button type="submit" class="btn btn-success" id="confirmButton">Submit</button> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
 {% endblock %} 
+
+
+
