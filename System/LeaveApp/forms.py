@@ -4,25 +4,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 class EmpForm(forms.ModelForm):
-    RANK_CHOICES = [
-        ('Manager', 'Manager'),
-        ('Supervisor', 'Supervisor'),
-        ('Staff', 'Staff'),
-        # Add more choices as needed
-    ]
-
-    rank = forms.ChoiceField(choices=RANK_CHOICES)
-    DEPARTMENT_CHOICES = [
-        ('HI', 'HI'),
-        ('M&E', 'M&E'),
-        ('Survey', 'Survey'),
-    ]
-    department = forms.ChoiceField(choices=DEPARTMENT_CHOICES)
-    
     class Meta:
         model = employee
         fields = ('department', 'unit', 'rank')
-
 
 class LeaveForm(forms.ModelForm):
     class Meta:

@@ -23,11 +23,11 @@
 			<div class="panel-heading">
 				<h4 class="panel-title">Leave Request</h4>
 				<div class="panel-heading-btn">
-					<a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
-					<a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
-					<a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse"><i class="fa fa-minus"></i></a>
-					<a href="javascript:;" class="btn btn-xs btn-icon btn-danger" data-toggle="panel-remove"><i class="fa fa-times"></i></a>
-				</div>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-danger" data-toggle="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
 			</div>
 			<!-- BEGIN panel-body -->
             <div class="panel-body">
@@ -40,7 +40,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-4">
-                            <select class="form-select" id="type_name" name="type_name" data-parsley-required="true" onchange="handleLeaveTypeChange()">
+                            <select class="form-select" id="type_name" name="type_name" data-parsley-required="true" autocomplete="off" onchange="handleLeaveTypeChange()">
                                 <option value="" disabled selected>Please choose</option>
                                 <option value="Sick">Sick</option>
                                 <option value="Annual Leave">Annual Leave</option>
@@ -50,7 +50,7 @@
                             </select>
                         </div>
                         <div class="col-lg-8" id="other_leave_container" style="display: none;"> <!-- Hidden by default -->
-                            <input class="form-control parsley-validated" name="other_leave" type="text" id="other_leave" data-parsley-pattern="#[A-Fa-f0-9]{6}" name="other_leave" placeholder="Name of leave" data-required="true" disabled /> <!-- Disabled by default -->
+                            <input class="form-control parsley-validated" name="other_leave" type="text" id="other_leave" autocomplete="off" data-parsley-pattern="#[A-Fa-f0-9]{6}" name="other_leave" placeholder="Name of leave" data-required="true" disabled /> <!-- Disabled by default -->
                         </div>
                         <!-- ... (remaining code) ... -->
                     </div>
@@ -68,9 +68,9 @@
                     <div class="row row-cols-lg-auto g-3 align-items-center">
                         <div class="col-lg-8">
                             <div class="input-group input-daterange" id="datepicker-autoClose" data-date-format="yyyy-mm-dd" data-date-start-date="Date.default">
-                                <input type="text" class="form-control" id="start_date" name="start_date" placeholder="Start Date" />
+                                <input type="text" class="form-control" id="start_date" name="start_date" autocomplete="off" placeholder="Start Date" />
                                 <span class="input-group-text input-group-addon">to</span>
-                                <input type="text" class="form-control" id="end_date" name="end_date" placeholder="End Date" />
+                                <input type="text" class="form-control" id="end_date" name="end_date" autocomplete="off" placeholder="End Date" />
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -88,10 +88,10 @@
                     </div>
                     <div class="row row-cols-lg-auto g-3 align-items-center">
                         <div class="col-lg-8">
-                            <input class="form-control parsley-validated" type="text" id="resumption_date" name="resumption_date" placeholder="Resumption Date" data-required="true" readonly />
+                            <input class="form-control parsley-validated" type="text" id="resumption_date" name="resumption_date" placeholder="Resumption Date" autocomplete="off" data-required="true" readonly />
                         </div>
                         <div class="col-lg-4">
-                            <input class="form-control parsley-validated" type="text" id="entitlement" name="entitlement" placeholder="Staff Entitlement" data-required="true"  readonly />
+                            <input class="form-control parsley-validated" type="text" id="entitlement" name="entitlement" placeholder="Staff Entitlement" autocomplete="off" data-required="true"  readonly />
                         </div>
                     </div>
             
@@ -102,10 +102,8 @@
                     <div class="panel-body p-0">
                             <textarea class="textarea form-control" id="comments" placeholder="Enter text ..." rows="12"></textarea>
                     </div>
-                    <div class="col-lg-12">
-                        Ensure the above details are correct before submitting...
-                    </div>
-                    <div class="col-lg-12">
+                    
+                    <div class="col-lg-12" style="margin-top: 20px;">
                         <div class="col-md-12 text-end"> 
                             <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal">Cancel</button> 
                             <!-- Button to submit form -->
@@ -133,7 +131,7 @@
                 </div>
             </div>
         </div>
-
+    </div>
 {% endblock %} 
 
 

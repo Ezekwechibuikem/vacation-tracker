@@ -1,5 +1,5 @@
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout 
@@ -10,6 +10,8 @@ from django.contrib import messages
 @login_required
 def home(request):
     """Home page views function and its context"""
+    if not request.user.is_authenticated:
+        return redirect(f"{settings.LOGIN_URL}?next={request.path}")
     context = {}
     return render(request, 'LeaveApp/index.html', context)
 
@@ -21,18 +23,17 @@ def dash_board(request):
 
 @login_required
 def update_employee(request):
-    """View function to updating the employee details"""
-    
+    """View function to update the employee details"""
     try:
-        newemp = employee.objects.get(user=request.user)
+       newemp = employee.objects.get(user=request.user)
     except employee.DoesNotExist:
         newemp = None
-
+        
     if request.method == 'POST':
         form = EmpForm(request.POST, instance=newemp)
         if form.is_valid():
             newemp = form.save(commit=False)
-            newemp.user = request.user
+            newemp.user = request.user  # Assuming user is already authenticated
             newemp.save()
             messages.success(request, 'Employee details updated successfully.')
             return redirect('create-leave')
