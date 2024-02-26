@@ -112,10 +112,22 @@
 
 	<script>
 		$(document).ready(function() {
+			// Get today's date
+			var today = new Date();
+			var tomorrow = new Date();
+			tomorrow.setDate(tomorrow.getDate() + 1); // Set tomorrow's date
+		
 			// Attach datepicker to the input fields
-			$('#start_date, #end_date').datepicker({
+			$('#start_date').datepicker({
 				format: 'yyyy-mm-dd',
 				autoclose: true,
+				startDate: today, 
+			});
+		
+			$('#end_date').datepicker({
+				format: 'yyyy-mm-dd',
+				autoclose: true,
+				startDate: tomorrow, 
 			});
 		
 			// Add change event listener to calculate the number of days and resumption date
@@ -153,6 +165,8 @@
 				}
 			}
 		});
+		
+		
 		
 		function loadUnits() {
 			// Get the selected department value
