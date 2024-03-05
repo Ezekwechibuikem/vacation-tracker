@@ -9,46 +9,66 @@
                 data-target="#appSidebarProfileMenu">
                 <div class="menu-profile-cover with-shadow"></div>
                 <div class="menu-profile-image">
-                    <!-- <img src={% static 'assets/img/user/user-13.jpg' %} alt="" /> -->
                 </div>
-
             </a>
         </div>
-
         <!-- <div class="menu-header">Navigation</div> -->
         <div class="menu-header"></div>
-        <div class="menu-item has-sub">
-            <a href="javascript:;" class="menu-link">
+        <div class="menu-item">
+            <a href="{% url 'index' %}" class="menu-link">
                 <div class="menu-icon">
-                    <i class="fa fa-sitemap"></i>
+                    <i class="fas fa-lg fas fa-home fa-fw"></i>
                 </div>
                 <div class="menu-text">Dashboard</div>
-                <div class="menu-caret"></div>
             </a>
-            <div class="menu-submenu">
-                <div class="menu-item">
-                    <a href="index.html" class="menu-link">
-                        <div class="menu-text">Dashboard v1</div>
-                    </a>
-                </div>
-            </div>
         </div>
-        <div class="menu-item has-sub">
-            <a href="javascript:;" class="menu-link">
+        <div class="menu-item">
+            <a href="{% url 'create-leave' %}" class="menu-link">
                 <div class="menu-icon">
-                    <i class="fa fa-gem"></i>
+                    <i class="fas fa-lg fas fa-pencil-alt fa-fw"></i> 
                 </div>
-                <div class="menu-text">UI Elements <span class="menu-label">NEW</span></div>
-                <div class="menu-caret"></div>
+                <div class="menu-text">Apply</div>
             </a>
-            <!-- <div class="menu-submenu">
-                    <div class="menu-item">
-                        <a href="ui_general.html" class="menu-link">
-                            <div class="menu-text">General <i class="fa fa-paper-plane text-theme"></i>
-                            </div>
-                        </a>
-                    </div>
-                </div> -->
+        </div>
+        <div class="menu-item">
+            <a href="{% url 'dashboard' %}" class="menu-link">
+                <div class="menu-icon">
+                    <i class="fas fa-lg fa-fw me-10px fa-file"></i> 
+                </div>
+                <div class="menu-text">Leave Recall</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <a href="{% url 'dashboard' %}" class="menu-link">
+                <div class="menu-icon">
+                    <i class="fas fa-lg fa fa-cash-register"></i> 
+                </div>
+                <div class="menu-text">Leave Balance</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <a href="{% url 'update-emp' %}" class="menu-link">
+                <div class="menu-icon">
+                    <i class="fas fa-lg fa-fw me-10px fa-registered"></i> 
+                </div>
+                <div class="menu-text">Assign leave</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <a href="{% url 'dashboard' %}" class="menu-link">
+                <div class="menu-icon">
+                    <i class="fas fa-lg fa-fw me-10px fa-receipt"></i> 
+                </div>
+                <div class="menu-text">Report</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <a href="{% url 'dashboard' %}" class="menu-link">
+                <div class="menu-icon">
+                    <i class="fas fa-lg fa-fw me-10px fa-pen-clip"></i> 
+                </div>
+                <div class="menu-text">FAQ</div>
+            </a>
         </div>
         <!-- BEGIN minify-button -->
         <div class="menu-item d-flex">

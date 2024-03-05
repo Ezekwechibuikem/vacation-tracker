@@ -30,10 +30,7 @@
 			<div class="news-feed">
                 <div class="news-image" style="background-image: url('{% static "img/login-bg/login-bg-15.jpg" %}')"></div>
 				<div class="news-caption">
-					<h4 class="caption-title"><b>WELCOME</b> Admin</h4>
-					<p>
-						As a Admin app administrator, you manage your organization’s account, such as add new users, manage security settings, and turn on the services you want your team to access.
-					</p>
+					<h4 class="caption-title"><b>WELCOME</b></h4>
 				</div>
 			</div>
 			<!-- END news-feed -->
@@ -43,7 +40,7 @@
 				<!-- BEGIN register-header -->
 				<div class="register-header mb-25px h1">
 					<div class="mb-1">Sign Up</div>
-					<small class="d-block fs-15px lh-16">Create your Leave Account.</small>
+					<small class="d-block fs-15px lh-16">Create Account.</small>
 				</div>
 				<!-- END register-header -->
 				
@@ -53,7 +50,11 @@
 						{% csrf_token %}
 						<div class="mb-3">
 							<label class="mb-2">Username <span class="text-danger">*</span></label>
-                            <input type="text" name="username" class="form-control fs-13px" id="username" autocomplete="off" placeholder="Username" />
+                            <input type="text" name="username" class="form-control fs-13px" id="username" autocomplete="off" placeholder="Username" required/>
+						</div>
+						<div class="mb-3">
+							<label class="mb-2">Email <span class="text-danger">*</span></label>
+							<input type="email" name="email" class="form-control fs-13px" autocomplete="off" placeholder="Email address" required/>
 						</div>
 						<div class="mb-3">
 							<label class="mb-2">Firstname <span class="text-danger">*</span></label>
@@ -64,16 +65,12 @@
                             <input type="text" name="last_name" class="form-control fs-13px" id="last_name" autocomplete="off" placeholder="Last Name" />
 						</div>
 						<div class="mb-3">
-							<label class="mb-2">Email <span class="text-danger">*</span></label>
-							<input type="email" name="email" class="form-control fs-13px" autocomplete="off" placeholder="Email address" />
-						</div>
-						<div class="mb-3">
 							<label class="mb-2">Password <span class="text-danger">*</span></label>
-							<input type="password" name="password1" class="form-control fs-13px" id="password1" autocomplete="off" placeholder="Enter Password" />
+							<input type="password" name="password1" class="form-control fs-13px" id="password1" autocomplete="off" placeholder="Enter Password" required/>
 						</div>
 						<div class="mb-4">
 							<label class="mb-2">Confirm Password <span class="text-danger">*</span></label>
-							<input type="password" name="password2" class="form-control fs-13px" id="password2" autocomplete="off" placeholder="Confirm Password" />
+							<input type="password" name="password2" class="form-control fs-13px" id="password2" autocomplete="off" placeholder="Confirm Password" required/>
 						</div>
 						{% comment %} <div class="form-check mb-4">
 							<input class="form-check-input" type="checkbox" value="" id="agreementCheckbox" />

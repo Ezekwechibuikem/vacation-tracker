@@ -5,36 +5,57 @@
 </title>
 
 {% block content %}
+<div class="row">
+    <h1>Leave List</h1>
 
+    <h2>Employee Details</h2>
+    <p>Email: {{ employee_instance.email }}</p>
+    <p>Department: {{ employee_instance.department }}</p>
+    <p>Unit: {{ employee_instance.unit }}</p>
+</div>  
+<div class="row">  
     <table>
         <thead>
             <tr>
-                <th>Type Name</th>
-                <th>Other Leave</th>
-                <th>Comments</th>
+                <th>Date Applied</th>
                 <th>Start Date</th>
                 <th>End Date</th>
+                <th>Comments</th>
+                <th>No. of Days</th>
                 <th>Resumption Date</th>
-                <th>Days Taken</th>
-                <th>Remaining Days</th>
-                <th>Approved</th>
+                <th>Status</th>
+                <th>Supervisor Comments</th>
             </tr>
         </thead>
         <tbody>
             {% for leave in leaves %}
             <tr>
-                <td>{{ leave.type_name }}</td>
-                <td>{{ leave.other_leave }}</td>
-                <td>{{ leave.comments }}</td>
+                <td>{{ leave.date_applied }}</td>
                 <td>{{ leave.start_date }}</td>
                 <td>{{ leave.end_date }}</td>
+                <td>{{ leave.comments }}</td>
+                <td>{{ leave.no_of_days }}</td>
                 <td>{{ leave.resumption_date }}</td>
-                <td>{{ leave.days_taken }}</td>
-                <td>{{ leave.remaining_days }}</td>
-                <td>{{ leave.approved }}</td>
+                <td>{{ leave.status }}</td>
+                <td>{{ leave.sub_comments }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+</div>
+<div class="row">
+    <h2>Substitutes</h2>
+    <ul>
+        {% for substitute in substitutes %}
+        <li>{{ substitute.sub_name }}</li>
+        {% endfor %}
+    </ul>
 
+    <h2>Projects</h2>
+    <ul>
+        {% for project in projects %}
+        <li>{{ project.project_name }}</li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

@@ -50,12 +50,12 @@
 						<form action="{% url 'login' %}" method="POST" autocomplete="off">
 							{% csrf_token %}
 							<div class="form-floating mb-20px">
-								<input type="text" autocomplete="off" name="username" class="form-control fs-13px h-45px" id="username" placeholder="Username" autocomplete="off"/>
+								<input type="text" name="username" class="form-control fs-13px h-45px" id="username" placeholder="Username" required/>
 								<label for="username" class="d-flex align-items-center">Username</label>
 							</div>
 							<div class="form-floating mb-20px">
-								<input type="password" name="password" class="form-control fs-13px h-45px" id="password" placeholder="Password" autocomplete="off"/>
-								<label for="password" class="d-flex align-items-center">Password</label>
+								<input type="password" name="password" class="form-control fs-13px h-45px" id="password" placeholder="Password" autocomplete="off" required/>
+								<label for="Password" class="d-flex align-items-center">Password</label>
 							</div>
 							<div class="login-buttons">
 								<button type="submit" class="btn btn-theme h-45px d-block w-100 btn-lg">Sign me in</button>
@@ -64,9 +64,27 @@
 								Not a member yet? Click <a href="{% url 'register' %}" class="text-white">here</a> to register.
 							</div>
 						</form>
-                        {% for message in messages %}
+                        {% comment %} {% for message in messages %}
                             <p>{{message}}</p>
-                        {% endfor %}
+                        {% endfor %}  {% endcomment %}
+						{% for message in messages %}
+							{% if message.tags %}
+								{% if 'success' in message.tags %}
+									<div class="alert alert-success">
+								{% elif 'error' in message.tags %}
+									<div class="alert alert-danger">
+								{% elif 'info' in message.tags %}
+									<div class="alert alert-info">
+								{% else %}
+									<div class="alert alert-secondary">
+								{% endif %}
+									<strong>{{ message.tags|title }}</strong>: {{ message.message }}
+									{% if request.user.is_authenticated %}
+										<span class="user-name">{{ request.user.username }}</span>
+									{% endif %}
+								</div>
+							{% endif %}
+						{% endfor %}
 					</div>
 					<!-- END login-content -->
 				</div>

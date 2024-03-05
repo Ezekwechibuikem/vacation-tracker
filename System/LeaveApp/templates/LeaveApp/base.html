@@ -47,9 +47,11 @@
 
 	<!-- ================== BEGIN page-css ================== -->
 
+	<link href={% static 'assets/css/bootstrap.min.css' %} rel="stylesheet" />
 	<link href={% static 'assets/plugins/jvectormap-next/jquery-jvectormap.css' %} rel="stylesheet" />
+	<link href={% static 'assets/plugins/nvd3/build/nv.d3.css' %} rel="stylesheet" />
+	<link href={% static 'assets/plugins/bootstrap-daterangepicker/daterangepicker.css' %} rel="stylesheet" />
 	<link href={% static 'assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css' %} rel="stylesheet" />
-	
 	<link href={% static 'assets/plugins/datatables.net-bs5/css/dataTables.bootstrap5.min.css' %} rel="stylesheet" />
 	<link href={% static 'assets/plugins/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css' %} rel="stylesheet" />
 	<link href={% static 'assets/plugins/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css' %} rel="stylesheet" />
@@ -63,7 +65,7 @@
 <body>
 	<!-- BEGIN #loader -->
 	<div id="loader" class="app-loader">
-		<span class="spinner"></span>tas
+		<span class="spinner"></span>
 	</div>
 	<!-- END #loader -->
 	<!-- BEGIN #app -->
@@ -76,7 +78,7 @@
 
 		<!-- END #header -->
 		<!-- BEGIN #sidebar -->
-		<div id="sidebar" class="app-sidebar">
+		<div id="sidebar" class="app-sidebar" data-bs-theme="dark">
 		<!-- <div id="sidebar" class="app-sidebar" data-bs-theme="success"> -->
 			<!-- BEGIN scrollbar -->
 			{% include 'LeaveApp/partial/sidebar.html' %}
@@ -92,12 +94,13 @@
 			{% block content %}
 			{% endblock %}
 			<!-- END content-container -->
-			<!-- BEGIN #footer -->
-			<div id="footer" class="app-footer m-0" style="text-align: left;">
-				Copyright &copy; 2023 PHIS3 <span style="float: right;">v1.0.0</span>
-			</div>
-			<!-- END #footer -->
+				<!-- BEGIN #footer -->
+		<div id="footer" class="app-footer m-0" style="text-align: left;">
+			Copyright &copy; 2023 PHIS3 <span style="float: right;">v1.0.0</span>
 		</div>
+		<!-- END #footer -->
+		</div>
+	
 		<!-- END #content -->
 
 		<!-- BEGIN scroll-top-btn -->
@@ -108,49 +111,44 @@
 	<!-- END #app -->
 
 	<!-- ================== BEGIN core-js ================== -->
-	<script src={% static 'assets/js/system.js' %}></script> 
 
 	<script>
 		$(document).ready(function() {
-			// Get today's date
 			var today = new Date();
 			var tomorrow = new Date();
-			tomorrow.setDate(tomorrow.getDate() + 1); // Set tomorrow's date
-		
-			// Attach datepicker to the input fields
+			tomorrow.setDate(tomorrow.getDate() + 1); 
+			
+			var formattedToday = today.toISOString().split('T')[0];
+			$('#date_applied').val(formattedToday);
+			
 			$('#start_date').datepicker({
 				format: 'yyyy-mm-dd',
 				autoclose: true,
 				startDate: today, 
 			});
-		
+			
 			$('#end_date').datepicker({
 				format: 'yyyy-mm-dd',
 				autoclose: true,
 				startDate: tomorrow, 
 			});
-		
-			// Add change event listener to calculate the number of days and resumption date
+			
 			$('#start_date, #end_date').change(function() {
 				calculateDaysAndResumption();
 			});
-		
-			// Function to calculate the number of days and resumption date
+			
 			function calculateDaysAndResumption() {
 				var startDate = $('#start_date').datepicker('getDate');
 				var endDate = $('#end_date').datepicker('getDate');
-		
+			
 				if (startDate && endDate) {
 					var daysDiff = Math.ceil((endDate - startDate) / (24 * 60 * 60 * 1000));
-		
-					// Display the number of days
+			
 					$('#Num_of_days').val(daysDiff);
-		
-					// Calculate the resumption date
+			
 					var nextDay = new Date(endDate);
 					nextDay.setDate(nextDay.getDate() + 1);
-		
-					// Check if the next day is a weekend (Saturday or Sunday)
+			
 					if (nextDay.getDay() === 0) { // Sunday
 						nextDay.setDate(nextDay.getDate() + 2);
 					} else if (nextDay.getDay() === 6) { // Saturday
@@ -158,14 +156,12 @@
 					} else { // Other days
 						nextDay.setDate(nextDay.getDate() + 1);
 					}
-		
-					// Display the resumption date in yyyy-mm-dd format
+			
 					var resumptionDate = nextDay.toISOString().split('T')[0];
 					$('#resumption_date').val(resumptionDate);
 				}
 			}
 		});
-		
 		
 		
 		function loadUnits() {
@@ -201,22 +197,48 @@
 						populateUnits(["Unit 6A", "Unit 6B", "Unit 6C"]);
 						break;
 					default:
-						// Clear the unit dropdown if no department is selected
 						unitDropdown.innerHTML = "<option value=''>Select Unit</option>";
 				}
-			}, 1000); // Simulate 1 second delay for loading
+			}, 1000); 
 		}
 		
 		function populateUnits(units) {
 			var unitDropdown = document.getElementById("unitDropdown");
-			unitDropdown.innerHTML = "<option value=''>Select Unit</option>"; // Reset dropdown
+			unitDropdown.innerHTML = "<option value=''>Select Unit</option>"; 
 			units.forEach(function(unit) {
 				var option = document.createElement("option");
 				option.text = unit;
-				option.value = unit.toLowerCase().replace(/\s+/g, ''); // Convert unit name to lowercase and remove spaces
+				option.value = unit.toLowerCase().replace(/\s+/g, ''); 
 				unitDropdown.add(option);
 			});
 		}
+
+		function loadEntitlement() {
+			var selectedLevel = document.getElementById("staffLevelDropdown").value;
+			var entitlementTextField = document.getElementById("entitlementTextField");
+		
+			switch(selectedLevel) {
+				case "Director":
+					entitlementTextField.value = "35";
+					break;
+				case "Deputy Director":
+					entitlementTextField.value = "30";
+					break;
+				case "H.O.D":
+					entitlementTextField.value = "25";
+					break;
+				case "Staff":
+					entitlementTextField.value = "20";
+					break;
+				case "Adhoc":
+					entitlementTextField.value = "None";
+					break;
+				default:
+					entitlementTextField.value = ""; 
+					break;
+			}
+		}
+
 	</script>
 
 	<!-- Custom JavaScript to handle form submission -->
@@ -230,6 +252,14 @@
 	<!-- ================== END core-js ================== -->
 
 	<!-- ================== BEGIN page-js ================== -->
+	<script src={% static 'assets/plugins/d3/d3.min.js' %}></script>
+	<script src={% static 'assets/plugins/nvd3/build/nv.d3.min.js' %}></script>
+	<script src={% static 'assets/plugins/jvectormap-next/jquery-jvectormap.min.js' %}></script>
+	<script src={% static 'assets/plugins/apexcharts/dist/apexcharts.min.js' %}></script>
+	<script src={% static 'assets/plugins/moment/min/moment.min.js' %}></script>
+	<script src={% static 'assets/plugins/bootstrap-daterangepicker/daterangepicker.js' %}></script>
+	<script src={% static 'assets/js/demo/dashboard-v3.js' %}></script>
+	
 	<script src={% static 'assets/plugins/gritter/js/jquery.gritter.js' %}></script>
 	<script src={% static 'assets/plugins/flot/source/jquery.canvaswrapper.js' %}></script>
 	<script src={% static 'assets/plugins/flot/source/jquery.colorhelpers.js' %}></script>
@@ -251,7 +281,6 @@
 	<script src={% static 'assets/plugins/flot/source/jquery.flot.symbol.js' %}></script>
 	<script src={% static 'assets/plugins/flot/source/jquery.flot.legend.js' %}></script>
 	<script src={% static 'assets/plugins/jquery-sparkline/jquery.sparkline.min.js' %}></script>
-	<script src={% static 'assets/plugins/jvectormap-next/jquery-jvectormap.min.js' %}></script>
 	<script src={% static 'assets/plugins/jvectormap-content/world-mill.js' %}></script>
 	<script src={% static 'assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js' %}></script>
 
