@@ -1,18 +1,39 @@
-from django.views.decorators.csrf import csrf_exempt
+from multiprocessing import AuthenticationError
 from django.conf import settings
+from django.http import HttpResponse
 from django.shortcuts import render, redirect,  get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout 
 from .models import employee, project, subtitute, leave_type, leave_entitlement, leaveRequest
 from .forms import RegisterForm, LeaveForm, EmpForm, SubtituteForm, ProjectForm, TypeForm
 from django.contrib import messages
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
+
 
 @login_required
 def home(request):
     """Home page views function and its context"""
-    if not request.user.is_authenticated:
-        return redirect(f"{settings.LOGIN_URL}?next={request.path}")
-    context = {}
+    # if not request.user.is_authenticated:
+    #     return redirect(f"{settings.LOGIN_URL}?next={request.path}")
+    user = request.user
+    try:
+        employee_instance = employee.objects.get(user_id=user)
+    except employee.DoesNotExist:
+        # Redirect the user to a different page
+        return redirect('update-emp')
+
+    user = request.user
+    employee_instance = get_object_or_404(employee, user_id=user)
+    leaves = leaveRequest.objects.filter(emp_id=employee_instance)
+    substitutes = subtitute.objects.filter(leaveRequest_id__in=leaves)
+    projects = project.objects.filter(subtitute__in=substitutes)
+    
+    context = {'employee_instance': employee_instance,
+        'leaves': leaves,
+        'substitutes': substitutes,
+        'projects': projects,}
+    
     return render(request, 'LeaveApp/index.html', context)
 
 @login_required
@@ -25,28 +46,31 @@ def dash_board(request):
 def update_employee(request):
     """View function to update the employee details"""
     try:
-       newemp = employee.objects.get(user_id=request.user)
+        newemp = request.user.employee
     except employee.DoesNotExist:
         newemp = None
         
     if request.method == 'POST':
         form = EmpForm(request.POST, instance=newemp)
         if form.is_valid():
-            newemp = form.save(commit=False)
-            newemp.user = request.user  # Assuming user is already authenticated
-            newemp.save()
-            messages.success(request, 'Employee details updated successfully.')
+            newemp = form.save()
             return redirect('create-leave')
         else:
             messages.error(request, 'Failed to update employee details. Please check the form.')
     else:
-        form = EmpForm(instance=newemp)
+        form = EmpForm(instance=newemp) 
 
     return render(request, 'LeaveApp/update-emp.html', {'form': form})
 
 @login_required
 def create_leave(request):
-    employee_instance = get_object_or_404(employee, user_id=request.user)
+    try:
+        # employee_instance = employee.objects.get(user_id=request.user)
+        employee_instance = request.user.employee
+    except employee.DoesNotExist:
+        # Handle the case when the employee instance doesn't exist
+        messages.error(request, 'No employee matches the given query.')
+        return redirect('dashboard')
     if request.method == "POST":
         leave_form = LeaveForm(request.POST)
         project_form = ProjectForm(request.POST)
@@ -75,7 +99,7 @@ def create_leave(request):
             subtitute_instance.save()
 
             messages.success(request, 'Leave created successfully.')
-            return redirect('leave-list')
+            return redirect('index')
         else:
             messages.error(request, 'Failed to create leave. Please check the form.')
     else:
@@ -119,7 +143,8 @@ def register_staff(request):
             messages.success(request, ("Registration Successful!"))
             user = authenticate(request, username=username, email=email, password=password, password2=password2)
             login(request, user)
-            return redirect('index')
+            admin_login_url = reverse_lazy('admin:login')
+            return redirect(admin_login_url)
    
     context = {'form': form}
     return render(request, 'registration/register.html', context)
@@ -133,12 +158,14 @@ def login_staff(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            messages.success(request, ("Login successful"))
             return redirect('index')
         else:
             messages.success(request, ("There Was An Error Logging In, Try Again..."))
 
     else:
             return render(request, 'registration/login.html', {})
+        
         
 def logout_staff(request):
     """The view handles the staff logout route"""

@@ -96,7 +96,7 @@
                     </div>
                    <div class="table-responsive">
                         <table id="myTable" class="table mb-0 align-middle">
-                            <label class="form-label col-form-label col-md-12"><h4> Please indicate the name of the staff who will cover for you during your absence while on leave. </h4></label>
+                            <label class="form-label col-form-label col-md-12"><h6> Please indicate the name of the staff who will cover for you during your absence while on leave. </h6></label>
                             <tbody>
                                 <tr>
                                     <td class="col-lg-4">
@@ -128,7 +128,7 @@
                     <div class="col-lg-12" style="margin-top: 20px;">
                         <div class="col-md-12 text-end">
                             <a href="{% url 'index' %}" class="btn btn-secondary">Cancel</a>
-                            <button type="submit" class="btn btn-success">Submit</button>
+                            <a href="javascript:;" data-click="swal-primary" class="btn btn-Success me-1">Submit</a>
                         </div>
                     </div>
                 </form>
@@ -137,25 +137,14 @@
         <!-- BEGIN scroll-top-btn -->
 		<a href="javascript:;" class="btn btn-icon btn-circle btn-theme btn-scroll-to-top"
         data-toggle="scroll-to-top"><i class="fa fa-angle-up"></i></a>
-    <!-- END scroll-top-btn -->
+        <!-- END scroll-top-btn -->
        
-        <div class="offcanvas offcanvas-bottom" id="offcanvasBottomExample">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title">Offcanvas</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
-            </div>
-            <div class="offcanvas-body">
-                <div>
-                   <h1>under construction</h1>
-                </div>
-                <a href="{% url 'create-leave' %}" class="btn btn-success">continue</a>
-            </div>
-        </div>
+       
     </div>
     <script>
         function addRow() {
             var table = document.getElementById("myTable");
-            var row = table.insertRow(-1); // Inserts a new row at the end of the table
+            var row = table.insertRow(-1); 
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
             cell1.innerHTML = '<input class="form-control parsley-validated" type="text" id="project_name" name="project_name" placeholder="Project Name" autocomplete="off" data-required="true"/>';
@@ -168,6 +157,7 @@
                 table.deleteRow(-1); // Deletes the last row
             }
         }
+        
     </script>
 {% endblock %}
 

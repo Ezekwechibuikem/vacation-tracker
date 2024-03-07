@@ -119,27 +119,34 @@ var handleSweetNotification = function() {
 		e.preventDefault();
 		swal({
 			title: 'Are you sure?',
-			text: 'You will not be able to recover this imaginary file!',
+			text: 'You will not be able to edit this file!',
 			icon: 'info',
 			buttons: {
 				cancel: {
 					text: 'Cancel',
 					value: null,
 					visible: true,
-					className: 'btn btn-default',
-					closeModal: true,
+					className: 'btn btn-default'
+					//closeModal: true,
 				},
 				confirm: {
-					text: 'Primary',
+					text: 'Submit',
 					value: true,
 					visible: true,
-					className: 'btn btn-primary',
-					closeModal: true
+					className: 'btn btn-success'
+					//closeModal: true
 				}
+			}
+		}).then((confirmed)=>{
+			console.log(confirmed);
+			if(confirmed){
+				$('#leaveForm').submit();
+			}else{
+				swal('Cancelled', 'You canceled the submission.', 'info');
 			}
 		});
 	});
-
+	
 	$('[data-click="swal-info"]').click(function(e) {
 		e.preventDefault();
 		swal({
@@ -151,20 +158,27 @@ var handleSweetNotification = function() {
 					text: 'Cancel',
 					value: null,
 					visible: true,
-					className: 'btn btn-default',
-					closeModal: true,
+					className: 'btn btn-default'
+					//  closeModal: true,
 				},
 				confirm: {
-					text: 'Info',
+					text: 'submit',
 					value: true,
 					visible: true,
-					className: 'btn btn-info',
-					closeModal: true
+					className: 'btn btn-success'
+					// closeModal: true
 				}
 			}
+		}).then((confirmed)=>{
+			console.log(confirmed);
+			if(confirmed){
+				$('#myForm').submit();
+			}else{
+				swal('Cancelled', 'You canceled the submission.', 'info');
+			}	
 		});
 	});
-
+	
 	$('[data-click="swal-success"]').click(function(e) {
 		e.preventDefault();
 		swal({
@@ -219,7 +233,7 @@ var handleSweetNotification = function() {
 		e.preventDefault();
 		swal({
 			title: 'Are you sure?',
-			text: 'You will not be able to recover this imaginary file!',
+			text: 'You will not be able to edit this file!',
 			icon: 'error',
 			buttons: {
 				cancel: {

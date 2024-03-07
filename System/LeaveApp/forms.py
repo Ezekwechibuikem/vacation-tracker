@@ -4,10 +4,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 class EmpForm(forms.ModelForm):
-    """ Handling the employee form"""
     class Meta:
         model = employee
-        fields = ('department', 'unit')
+        fields = ['department', 'unit']
         
 class TypeForm(forms.ModelForm):
     """ Handling the leave type form"""

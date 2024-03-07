@@ -17,20 +17,17 @@ class employee(models.Model):
     """ Represents all the properties of the leave """
     employee_id = models.AutoField(primary_key=True)
     user_id = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    email = models.EmailField(default='Phis3@gmail.com')
     department = models.CharField(max_length=50, null=True, blank=True)
     unit = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.email}, {self.department}, {self.unit},"
+        return f"{self.department}, {self.unit},"
     
     def save(self, *args, **kwargs):
         if not self.pk:  
             existing_employee = employee.objects.filter(user_id=self.user_id)
             if existing_employee.exists():  
                 self.pk = existing_employee.first().pk  
-        if self.user_id:
-            self.email = self.user_id.email
         super().save(*args, **kwargs)
                 
 class leave_type(models.Model):
