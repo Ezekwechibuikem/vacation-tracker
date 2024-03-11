@@ -19,7 +19,7 @@
 		<!-- BEGIN panel -->
 		<div class="panel panel-inverse">
 			<div class="panel-heading">
-				<h4 class="panel-title">WELCOME</h4>
+				<h4 class="panel-title">LEAVES</h4>
 				<div class="panel-heading-btn">
 					
 				</div>
@@ -41,6 +41,7 @@
 								<div class="mb-3 text-gray-300">
 									<h2><p><b>Employee Details</b></p></h2>
 									<h4><p><b>Email: {{ user.email }}</b></p></h4>
+									<h4><p><b>Name: {{ user.last_name }} {{ user.first_name }}</b></p></h4>
 									<h4><p><b>Department: {{ employee_instance.department }}</b></p></h4>
 									<h4><p><b>Unit: {{ employee_instance.unit }}</b></p></h4>
 								</div>
@@ -83,27 +84,26 @@
 					<thead>
 						<tr>
 							<th width="1%">S/N</th>
+							<th nowrap="">Leave Type</th>
 							<th nowrap="">Date Applied</th>
 							<th nowrap="">Start Date</th>
 							<th nowrap="">End Date</th>
-							<th nowrap="">Days</th>
-							<th nowrap="">Resumption Date</th>
-							<th nowrap="">Comments</th>
 							<th nowrap="">Status</th>
-							<th nowrap="">Note</th>
+							<th nowrap="">Action</th>
 					</thead>
 					<tbody>
 						{% for leave in leaves %}
 						<tr>
 							<td width="1%" class="fw-bold">{{ forloop.counter }}.</td>
+							<td width="20%">{{ leave.leave_type_id.type_name }}</td>
 							<td width="20%">{{ leave.date_applied }}</td>
 							<td width="20%">{{ leave.start_date }}</td>
 							<td width="20%">{{ leave.end_date }}</td>
-							<td>{{ leave.no_of_days }}</td>
-							<td>{{ leave.resumption_date }}</td>
-							<td width="30%">{{ leave.comments }}</td>
 							<td>{{ leave.status }}</td>
-							<td>{{ leave.sub_comments }}</td>
+							<td>
+								<!-- Add the "View" button with a link to the leave detail page -->
+								<a href="{% url 'leave-detail' leave_id=leave.leaveRequest_id %}" class="btn btn-sm btn-primary w-60px me-1">View</a>
+							</td>
 						</tr>
 						{% endfor %}
 					</tbody>

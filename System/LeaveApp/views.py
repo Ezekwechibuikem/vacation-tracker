@@ -29,8 +29,17 @@ def home(request):
     substitutes = subtitute.objects.filter(leaveRequest_id__in=leaves)
     projects = project.objects.filter(subtitute__in=substitutes)
     
+       # Create a list to store leave types applied for
+    leave_types_applied_for = []
+
+    # Iterate over each leave request to get its leave type
+    for leave in leaves:
+        leave_type_applied_for = leave.leave_type_id.type_name
+        leave_types_applied_for.append(leave_type_applied_for)
+    
     context = {'employee_instance': employee_instance,
         'leaves': leaves,
+        'leave_types_applied_for': leave_types_applied_for,
         'substitutes': substitutes,
         'projects': projects,}
     
@@ -75,6 +84,8 @@ def create_leave(request):
         leave_form = LeaveForm(request.POST)
         project_form = ProjectForm(request.POST)
         subtitute_form = SubtituteForm(request.POST)
+        
+        leave_type_name = None
 
         if all([leave_form.is_valid(), project_form.is_valid(), subtitute_form.is_valid()]):
             leave_instance = leave_form.save(commit=False)
@@ -84,7 +95,8 @@ def create_leave(request):
             leave_type_id = leave_form.cleaned_data['leave_type_id'].type_id
             leave_type_instance = leave_type.objects.get(type_id=leave_type_id)
             leave_instance.leave_type_id = leave_type_instance
-
+            leave_type_applied_for = leave_form.cleaned_data['leave_type_id'].type_name
+            
             project_instance = project_form.save()
             leave_instance.project_id = project_instance
 
@@ -112,22 +124,20 @@ def create_leave(request):
         leave_form.fields['leave_type_id'].queryset = leave_type.objects.all()
 
     leave_types = leave_type.objects.all()
-    return render(request, 'LeaveApp/create-leave.html', {'leave_form': leave_form, 'project_form': project_form, 'subtitute_form': subtitute_form, 'leave_types': leave_types})
+    context = {'leave_form': leave_form, 'project_form': project_form, 'subtitute_form': subtitute_form, 'leave_types': leave_types}
+    return render(request, 'LeaveApp/create-leave.html', context)
     
-def leave_list(request):
+def leave_detail(request, leave_id):
     """leave list function"""
     user = request.user
     employee_instance = get_object_or_404(employee, user_id=user)
-    leaves = leaveRequest.objects.filter(emp_id=employee_instance)
-    substitutes = subtitute.objects.filter(leaveRequest_id__in=leaves)
-    projects = project.objects.filter(subtitute__in=substitutes)
-    
-    return render(request, 'LeaveApp/leave-list.html', {
-        'employee_instance': employee_instance,
-        'leaves': leaves,
-        'substitutes': substitutes,
-        'projects': projects,
-    })
+    leave = get_object_or_404(leaveRequest, pk=leave_id)
+
+    context = {'leave': leave,
+               'employee_instance': employee_instance,
+               'user': user
+               }
+    return render(request, 'LeaveApp/leave-detail.html', context)
 
 def register_staff(request):
     """This view handles the staff registration route"""
