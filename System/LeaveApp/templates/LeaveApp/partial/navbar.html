@@ -16,16 +16,18 @@
         <div class="navbar-item navbar-user dropdown">
             <a href="#" class="navbar-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
                 <span>
-                    <span class="d-none d-md-inline">{{ user.email }}</span>
-                    <b class="caret"></b>
-                </span>
+                    <span class="btn btn-primary fw-bold rounded-pill d-none d-md-inline ">{{ user.email }} <b class="caret"></b></span>
+                </span> 
+                {% comment %} <div class="header-btn">
+                    <a href="#" class="btn btn-primary fw-bold rounded-pill">Get started <i class="fa fa-arrow-down ms-1 opacity-5"></i></a>
+                </div> {% endcomment %}
             </a>
             <div class="dropdown-menu dropdown-menu-end me-1">
                 <a href="extra_profile.html" class="dropdown-item">View Profile</a>
                 <a href="calendar.html" class="dropdown-item">Calendar</a>
                 <div class="dropdown-divider"></div>
-                <a href="login.html" class="dropdown-item">Log Out</a>
-                {% comment %} <a href='/logout/' class="btn btn-success btn-sm me-1 mb-1">Log out</a> {% endcomment %}
+                <a href='/logout/' class="dropdown-item">Log Out</a>
+                {% comment %} <a href= class="btn btn-success btn-sm me-1 mb-1">Log out</a> {% endcomment %}
             </div>
         </div>
     </div>
