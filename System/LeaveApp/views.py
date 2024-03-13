@@ -171,8 +171,8 @@ def login_staff(request):
             messages.success(request, ("Login successful"))
             return redirect('index')
         else:
-            messages.success(request, ("There Was An Error Logging In, Try Again..."))
-
+            messages.error(request, ("There Was An Error Logging In, Try Again..."))
+            return redirect('login')
     else:
             return render(request, 'registration/login.html', {})
         
