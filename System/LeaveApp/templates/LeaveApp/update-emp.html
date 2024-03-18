@@ -101,5 +101,83 @@
 	<!-- END content-container -->
 
     <!-- Bootstrap Modal -->
+    <script>
+
+        function loadUnits() {
+			// Get the selected department value
+			var selectedDepartment = document.getElementById("departmentDropdown").value;
+			
+			// Get the unit dropdown element
+			var unitDropdown = document.getElementById("unitDropdown");
+			
+			// Clear existing options in the unit dropdown
+			unitDropdown.innerHTML = "<option value=''>Loading...</option>";
+			
+			// Simulate an asynchronous call to fetch units based on selected department
+			setTimeout(function() {
+				// Populate unit dropdown based on selected department
+				switch(selectedDepartment) {
+					case "Health Informatics":
+						populateUnits(["Unit 1A", "Unit 1B", "Unit 1C"]);
+						break;
+					case "Survey":
+						populateUnits(["Unit 2A", "Unit 2B", "Unit 2C"]);
+						break;
+					case "M & E":
+						populateUnits(["Unit 3A", "Unit 3B", "Unit 3C"]);
+						break;
+					case "Surveillance":
+						populateUnits(["Unit 4A", "Unit 4B", "Unit 4C"]);
+						break;
+					case "Data Science":
+						populateUnits(["Unit 5A", "Unit 5B", "Unit 5C"]);
+						break;
+					case "Quality Improvement":
+						populateUnits(["Unit 6A", "Unit 6B", "Unit 6C"]);
+						break;
+					default:
+						unitDropdown.innerHTML = "<option value=''>Select Unit</option>";
+				}
+			}, 1000); 
+		}
+		
+		function populateUnits(units) {
+			var unitDropdown = document.getElementById("unitDropdown");
+			unitDropdown.innerHTML = "<option value=''>Select Unit</option>"; 
+			units.forEach(function(unit) {
+				var option = document.createElement("option");
+				option.text = unit;
+				option.value = unit.toLowerCase().replace(/\s+/g, ''); 
+				unitDropdown.add(option);
+			});
+		}
+
+		function loadEntitlement() {
+			var selectedLevel = document.getElementById("staffLevelDropdown").value;
+			var entitlementTextField = document.getElementById("entitlementTextField");
+		
+			switch(selectedLevel) {
+				case "Director":
+					entitlementTextField.value = "35";
+					break;
+				case "Deputy Director":
+					entitlementTextField.value = "30";
+					break;
+				case "H.O.D":
+					entitlementTextField.value = "25";
+					break;
+				case "Staff":
+					entitlementTextField.value = "20";
+					break;
+				case "Adhoc":
+					entitlementTextField.value = "None";
+					break;
+				default:
+					entitlementTextField.value = ""; 
+					break;
+			}
+		}
+
+    </script>
       
 {% endblock %}

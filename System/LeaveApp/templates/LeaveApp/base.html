@@ -1,6 +1,6 @@
 {% load static %}
 
-
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -15,13 +15,13 @@
 	<!-- ================== BEGIN core-css ================== -->
 	<link href={% static 'assets/css/vendor.min.css' %} rel="stylesheet" />
 	<link href={% static 'assets/css/default/app.min.css' %} rel="stylesheet" />
-	
-	<link href={% static 'assets/plugins/gritter/css/jquery.gritter.css' %} rel="stylesheet" />
-	<link href={% static 'assets/css/bootstrap.min.css' %} rel="stylesheet" />
+	<!-- ================== END core-css ================== -->
+
+	<!-- ================== BEGIN page-css ================== -->
+
 	<link href={% static 'assets/plugins/jvectormap-next/jquery-jvectormap.css' %} rel="stylesheet" />
-	<link href={% static 'assets/plugins/nvd3/build/nv.d3.css' %} rel="stylesheet" />
-	<link href={% static 'assets/plugins/bootstrap-daterangepicker/daterangepicker.css' %} rel="stylesheet" />
 	<link href={% static 'assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css' %} rel="stylesheet" />
+
 	<link href={% static 'assets/plugins/datatables.net-bs5/css/dataTables.bootstrap5.min.css' %} rel="stylesheet" />
 	<link href={% static 'assets/plugins/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css' %} rel="stylesheet" />
 	<link href={% static 'assets/plugins/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css' %} rel="stylesheet" />
@@ -29,35 +29,7 @@
 	<link href={% static 'assets/plugins/datatables.net-keytable-bs5/css/keyTable.bootstrap5.min.css' %} rel="stylesheet" />
 	<link href={% static 'assets/plugins/datatables.net-rowreorder-bs5/css/rowReorder.bootstrap5.min.css' %} rel="stylesheet" />
 	<link href={% static 'assets/plugins/datatables.net-select-bs5/css/select.bootstrap5.min.css' %} rel="stylesheet" />
-
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-	<script>
-		$(document).ready(function() {
-			// When the confirm submit button is clicked
-			$('#confirmSubmit').click(function() {
-				// Submit the form
-				$('#myForm').submit();
-			});
-		});
-	</script>
-	<script>
-		// JavaScript to handle form submission when the "Submit" button is clicked
-		$(document).ready(function () {
-			$('#submitButton').click(function () {
-				// Trigger the confirmation modal
-				$('#confirmModal').modal('show');
-			});
-	
-			// Submit the form when confirmation is confirmed
-			$('#confirmButton').click(function () {
-				$('#leaveForm').submit();
-			});
-		});
-	</script>
-	<!-- ================== END core-css ================== -->
-
-	<!-- ================== BEGIN page-css ================== -->
+	<!-- ================== END page-css ================== -->
 
 </head>
 
@@ -70,11 +42,9 @@
 	<!-- BEGIN #app -->
 	<div id="app" class="app app-header-fixed app-sidebar-fixed app-content-full-height">
 		<!-- BEGIN #header -->
-		
 		<div id="header" class="app-header">
 			{% include 'LeaveApp/partial/navbar.html' %}
 		</div>
-
 		<!-- END #header -->
 		<!-- BEGIN #sidebar -->
 		<div id="sidebar" class="app-sidebar" data-bs-theme="dark">
@@ -110,7 +80,64 @@
 	<!-- END #app -->
 
 	<!-- ================== BEGIN core-js ================== -->
+		<!-- <script src={% static 'assets/js/system.js' %}></script> -->
+	<script src={% static 'assets/js/vendor.min.js' %}></script>
+	<script src={% static 'assets/js/app.min.js' %}></script>
+	<!-- ================== END core-js ================== -->
 
+	<!-- ================== BEGIN page-js ================== -->
+	<script src={% static 'assets/plugins/gritter/js/jquery.gritter.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.canvaswrapper.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.colorhelpers.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.flot.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.flot.saturated.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.flot.browser.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.flot.drawSeries.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.flot.uiConstants.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.flot.time.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.flot.resize.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.flot.pie.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.flot.crosshair.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.flot.categories.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.flot.navigate.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.flot.touchNavigate.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.flot.hover.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.flot.touch.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.flot.selection.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.flot.symbol.js' %}></script>
+	<script src={% static 'assets/plugins/flot/source/jquery.flot.legend.js' %}></script>
+	<script src={% static 'assets/plugins/jquery-sparkline/jquery.sparkline.min.js' %}></script>
+	<script src={% static 'assets/plugins/jvectormap-next/jquery-jvectormap.min.js' %}></script>
+	<script src={% static 'assets/plugins/jvectormap-content/world-mill.js' %}></script>
+	<script src={% static 'assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js' %}></script>
+
+	<script src={% static 'assets/plugins/datatables.net/js/jquery.dataTables.min.js' %}></script>
+	<script src={% static 'assets/plugins/datatables.net-bs5/js/dataTables.bootstrap5.min.js' %}></script>
+	<script src={% static 'assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js' %}></script>
+	<script src={% static 'assets/plugins/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js' %}></script>
+	<script src={% static 'assets/plugins/datatables.net-colreorder/js/dataTables.colReorder.min.js' %}></script>
+	<script src={% static 'assets/plugins/datatables.net-colreorder-bs5/js/colReorder.bootstrap5.min.js' %}></script>
+	<script src={% static 'assets/plugins/datatables.net-keytable/js/dataTables.keyTable.min.js' %}></script>
+	<script src={% static 'assets/plugins/datatables.net-keytable-bs5/js/keyTable.bootstrap5.min.js' %}></script>
+	<script src={% static 'assets/plugins/datatables.net-rowreorder/js/dataTables.rowReorder.min.js' %}></script>
+	<script src={% static 'assets/plugins/datatables.net-rowreorder-bs5/js/rowReorder.bootstrap5.min.js' %}></script>
+	<script src={% static 'assets/plugins/datatables.net-select/js/dataTables.select.min.js' %}></script>
+	<script src={% static 'assets/plugins/datatables.net-select-bs5/js/select.bootstrap5.min.js' %}></script>
+	<script src={% static 'assets/plugins/datatables.net-buttons/js/dataTables.buttons.min.js' %}></script>
+	<script src={% static 'assets/plugins/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js' %}></script>
+	<script src={% static 'assets/plugins/datatables.net-buttons/js/buttons.colVis.min.js' %}></script>
+	<script src={% static 'assets/plugins/datatables.net-buttons/js/buttons.flash.min.js' %}></script>
+	<script src={% static 'assets/plugins/datatables.net-buttons/js/buttons.html5.min.js' %}></script>
+	<script src={% static 'assets/plugins/datatables.net-buttons/js/buttons.print.min.js' %}></script>
+	<script src={% static 'assets/plugins/pdfmake/build/pdfmake.min.js' %}></script>
+	<script src={% static 'assets/plugins/pdfmake/build/vfs_fonts.js' %}></script>
+	<script src={% static 'assets/plugins/jszip/dist/jszip.min.js' %}></script>
+	<script src={% static 'assets/js/demo/table-manage-combine.demo.js' %}></script>
+
+	<script src={% static 'assets/plugins/@highlightjs/cdn-assets/highlight.min.js' %}></script>
+	<script src={% static 'assets/js/demo/render.highlight.js' %}></script>
+	{% comment %} <script src={% static 'assets/js/demo/dashboard.js' %}></script>  {% endcomment %}
+		
 	<script>
 		$(document).ready(function() {
 			var today = new Date();
@@ -161,155 +188,8 @@
 				}
 			}
 		});
-		
-		
-		function loadUnits() {
-			// Get the selected department value
-			var selectedDepartment = document.getElementById("departmentDropdown").value;
-			
-			// Get the unit dropdown element
-			var unitDropdown = document.getElementById("unitDropdown");
-			
-			// Clear existing options in the unit dropdown
-			unitDropdown.innerHTML = "<option value=''>Loading...</option>";
-			
-			// Simulate an asynchronous call to fetch units based on selected department
-			setTimeout(function() {
-				// Populate unit dropdown based on selected department
-				switch(selectedDepartment) {
-					case "Health Informatics":
-						populateUnits(["Unit 1A", "Unit 1B", "Unit 1C"]);
-						break;
-					case "Survey":
-						populateUnits(["Unit 2A", "Unit 2B", "Unit 2C"]);
-						break;
-					case "M & E":
-						populateUnits(["Unit 3A", "Unit 3B", "Unit 3C"]);
-						break;
-					case "Surveillance":
-						populateUnits(["Unit 4A", "Unit 4B", "Unit 4C"]);
-						break;
-					case "Data Science":
-						populateUnits(["Unit 5A", "Unit 5B", "Unit 5C"]);
-						break;
-					case "Quality Improvement":
-						populateUnits(["Unit 6A", "Unit 6B", "Unit 6C"]);
-						break;
-					default:
-						unitDropdown.innerHTML = "<option value=''>Select Unit</option>";
-				}
-			}, 1000); 
-		}
-		
-		function populateUnits(units) {
-			var unitDropdown = document.getElementById("unitDropdown");
-			unitDropdown.innerHTML = "<option value=''>Select Unit</option>"; 
-			units.forEach(function(unit) {
-				var option = document.createElement("option");
-				option.text = unit;
-				option.value = unit.toLowerCase().replace(/\s+/g, ''); 
-				unitDropdown.add(option);
-			});
-		}
-
-		function loadEntitlement() {
-			var selectedLevel = document.getElementById("staffLevelDropdown").value;
-			var entitlementTextField = document.getElementById("entitlementTextField");
-		
-			switch(selectedLevel) {
-				case "Director":
-					entitlementTextField.value = "35";
-					break;
-				case "Deputy Director":
-					entitlementTextField.value = "30";
-					break;
-				case "H.O.D":
-					entitlementTextField.value = "25";
-					break;
-				case "Staff":
-					entitlementTextField.value = "20";
-					break;
-				case "Adhoc":
-					entitlementTextField.value = "None";
-					break;
-				default:
-					entitlementTextField.value = ""; 
-					break;
-			}
-		}
-
-		<!-- Custom JavaScript to handle form submission -->
-
-		{% comment %} <script src={% static 'assets/js/jquery.min.js' %}></script> {% endcomment %}
-		<script src={% static 'assets/js/bootstrap.bundle.min.js' %}></script>
-		<script src={% static 'assets/js/jquery-3.6.0.min.js' %}></script>
 	
-		<script src={% static 'assets/js/vendor.min.js' %}></script>
-		<script src={% static 'assets/js/app.min.js' %}></script>
-		<!-- ================== END core-js ================== -->
-	
-		<script src={% static 'assets/plugins/sweetalert/dist/sweetalert.min.js' %}></script>
-		<script src={% static 'assets/js/demo/ui-modal-notification.demo.js' %}></script>
-		<!-- ================== BEGIN page-js ================== -->
-		<script src={% static 'assets/plugins/d3/d3.min.js' %}></script>
-		<script src={% static 'assets/plugins/nvd3/build/nv.d3.min.js' %}></script>
-		<script src={% static 'assets/plugins/jvectormap-next/jquery-jvectormap.min.js' %}></script>
-		<script src={% static 'assets/plugins/apexcharts/dist/apexcharts.min.js' %}></script>
-		<script src={% static 'assets/plugins/moment/min/moment.min.js' %}></script>
-		<script src={% static 'assets/plugins/bootstrap-daterangepicker/daterangepicker.js' %}></script>
-		<script src={% static 'assets/js/demo/dashboard-v3.js' %}></script>
-		
-		<script src={% static 'assets/plugins/gritter/js/jquery.gritter.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.canvaswrapper.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.colorhelpers.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.flot.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.flot.saturated.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.flot.browser.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.flot.drawSeries.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.flot.uiConstants.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.flot.time.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.flot.resize.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.flot.pie.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.flot.crosshair.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.flot.categories.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.flot.navigate.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.flot.touchNavigate.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.flot.hover.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.flot.touch.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.flot.selection.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.flot.symbol.js' %}></script>
-		<script src={% static 'assets/plugins/flot/source/jquery.flot.legend.js' %}></script>
-		<script src={% static 'assets/plugins/jquery-sparkline/jquery.sparkline.min.js' %}></script>
-		<script src={% static 'assets/plugins/jvectormap-content/world-mill.js' %}></script>
-		<script src={% static 'assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js' %}></script>
-	
-		<script src={% static 'assets/plugins/datatables.net/js/jquery.dataTables.min.js' %}></script>
-		<script src={% static 'assets/plugins/datatables.net-bs5/js/dataTables.bootstrap5.min.js' %}></script>
-		<script src={% static 'assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js' %}></script>
-		<script src={% static 'assets/plugins/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js' %}></script>
-		<script src={% static 'assets/plugins/datatables.net-colreorder/js/dataTables.colReorder.min.js' %}></script>
-		<script src={% static 'assets/plugins/datatables.net-colreorder-bs5/js/colReorder.bootstrap5.min.js' %}></script>
-		<script src={% static 'assets/plugins/datatables.net-keytable/js/dataTables.keyTable.min.js' %}></script>
-		<script src={% static 'assets/plugins/datatables.net-keytable-bs5/js/keyTable.bootstrap5.min.js' %}></script>
-		<script src={% static 'assets/plugins/datatables.net-rowreorder/js/dataTables.rowReorder.min.js' %}></script>
-		<script src={% static 'assets/plugins/datatables.net-rowreorder-bs5/js/rowReorder.bootstrap5.min.js' %}></script>
-		<script src={% static 'assets/plugins/datatables.net-select/js/dataTables.select.min.js' %}></script>
-		<script src={% static 'assets/plugins/datatables.net-select-bs5/js/select.bootstrap5.min.js' %}></script>
-		<script src={% static 'assets/plugins/datatables.net-buttons/js/dataTables.buttons.min.js' %}></script>
-		<script src={% static 'assets/plugins/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js' %}></script>
-		<script src={% static 'assets/plugins/datatables.net-buttons/js/buttons.colVis.min.js' %}></script>
-		<script src={% static 'assets/plugins/datatables.net-buttons/js/buttons.flash.min.js' %}></script>
-		<script src={% static 'assets/plugins/datatables.net-buttons/js/buttons.html5.min.js' %}></script>
-		<script src={% static 'assets/plugins/datatables.net-buttons/js/buttons.print.min.js' %}></script>
-		<script src={% static 'assets/plugins/pdfmake/build/pdfmake.min.js' %}></script>
-		<script src={% static 'assets/plugins/pdfmake/build/vfs_fonts.js' %}></script>
-		<script src={% static 'assets/plugins/jszip/dist/jszip.min.js' %}></script>
-		<script src={% static 'assets/js/demo/table-manage-combine.demo.js' %}></script>
-	
-		<script src={% static 'assets/plugins/@highlightjs/cdn-assets/highlight.min.js' %}></script>
-		<script src={% static 'assets/js/demo/render.highlight.js' %}></script>
-
 	</script>
-	<!-- ================== END page-js ================== -->
+
 </body>
 </html>
