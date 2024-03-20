@@ -1,21 +1,19 @@
-from multiprocessing import AuthenticationError
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 from django.http import HttpResponse
-from django.shortcuts import render, redirect,  get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout 
+# from django.core.exceptions import PermissionDenied
 from .models import employee, project, subtitute, leave_type, leave_entitlement, leaveRequest
 from .forms import RegisterForm, LeaveForm, EmpForm, SubtituteForm, ProjectForm, TypeForm
 from django.contrib import messages
-from django.contrib.auth.views import LoginView
-from django.urls import reverse_lazy
 
 
 @login_required
 def home(request):
     """Home page views function and its context"""
-    # if not request.user.is_authenticated:
-    #     return redirect(f"{settings.LOGIN_URL}?next={request.path}")
+    if not request.user.is_authenticated:
+       return redirect(f"{settings.LOGIN_URL}?next={request.path}")
     user = request.user
     try:
         employee_instance = employee.objects.get(user_id=user)
@@ -52,6 +50,7 @@ def dash_board(request):
     return render(request, 'LeaveApp/dashboard.html', context)
 
 @login_required
+@permission_required("LeaveApp.add_user")
 def update_employee(request):
     """View function to update the employee details"""
     try:
@@ -126,7 +125,8 @@ def create_leave(request):
     leave_types = leave_type.objects.all()
     context = {'leave_form': leave_form, 'project_form': project_form, 'subtitute_form': subtitute_form, 'leave_types': leave_types}
     return render(request, 'LeaveApp/create-leave.html', context)
-    
+
+@login_required
 def leave_detail(request, leave_id):
     """leave list function"""
     user = request.user
@@ -139,6 +139,8 @@ def leave_detail(request, leave_id):
                }
     return render(request, 'LeaveApp/leave-detail.html', context)
 
+@login_required
+@permission_required("LeaveApp.can_add_new_employee")
 def register_staff(request):
     """This view handles the staff registration route"""
     form = RegisterForm()
@@ -168,7 +170,7 @@ def login_staff(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, ("Login successful"))
+           # messages.success(request, ("Login successful"))
             return redirect('index')
         else:
             messages.error(request, ("There Was An Error Logging In, Try Again..."))

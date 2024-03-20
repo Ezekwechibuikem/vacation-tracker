@@ -23,6 +23,9 @@ class employee(models.Model):
     def __str__(self):
         return f"{self.department}, {self.unit},"
     
+    class Meta:
+        permissions = [("can_add_new_employee", "can add new employee")]
+    
     def save(self, *args, **kwargs):
         if not self.pk:  
             existing_employee = employee.objects.filter(user_id=self.user_id)
