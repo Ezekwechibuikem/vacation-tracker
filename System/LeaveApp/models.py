@@ -39,6 +39,8 @@ class leave_type(models.Model):
     type_name = models.CharField(max_length=50, null=True, blank=True)
     is_delete = models.BooleanField(default=False)
     
+    class Meta:
+        permissions = [("can_add_types_assign", "can add type assign")]
     
     def __str__(self):
         return f"{self.type_name}"
@@ -56,6 +58,11 @@ class leaveRequest(models.Model):
     emp_id = models.ForeignKey(employee, on_delete=models.CASCADE)
     leave_type_id = models.ForeignKey(leave_type, on_delete=models.CASCADE, null=True)
     
+    class Meta:
+        permissions = [("can_see_approved_leave", "can see approved leave"),
+                       ("can_see_submitted_leave", "can see submitted leave")
+                       ]           
+        
     def __str__(self):
         return f"{self.date_applied}, {self.start_date}, {self.end_date},\
             {self.comments}, {self.no_of_days}, {self.resumption_date}, {self.status}, {self.sub_comments}"

@@ -23,11 +23,7 @@
                 </div> {% endcomment %}
             </a>
             <div class="dropdown-menu dropdown-menu-end me-1">
-                <a href="extra_profile.html" class="dropdown-item">View Profile</a>
-                <a href="calendar.html" class="dropdown-item">Calendar</a>
-                {% if perms.LeaveApp.can_add_new_employee %}
-                <a href='/register/' class="dropdown-item">create user</a>
-                {%endif %}
+                <a href="{% url 'profile' %}" class="dropdown-item">View Profile</a>
                 <div class="dropdown-divider"></div>
                 <a href='/logout/' class="dropdown-item">Log Out</a>
                 {% comment %} <a href= class="btn btn-success btn-sm me-1 mb-1">Log out</a> {% endcomment %}

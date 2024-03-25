@@ -1,24 +1,27 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
+from .decorators import unauthenticated_user
 from django.conf import settings
 from django.http import HttpResponse
+from django.urls import reverse_lazy
 # from django.core.exceptions import PermissionDenied
 from .models import employee, project, subtitute, leave_type, leave_entitlement, leaveRequest
 from .forms import RegisterForm, LeaveForm, EmpForm, SubtituteForm, ProjectForm, TypeForm
 from django.contrib import messages
 
 
-@login_required
+
+@login_required(login_url='login')
 def home(request):
     """Home page views function and its context"""
     if not request.user.is_authenticated:
        return redirect(f"{settings.LOGIN_URL}?next={request.path}")
     user = request.user
     try:
-        employee_instance = employee.objects.get(user_id=user)
+       employee_instance = employee.objects.get(user_id=user)
     except employee.DoesNotExist:
-        # Redirect the user to a different page
+        #Redirect the user to a different page
         return redirect('update-emp')
 
     user = request.user
@@ -27,7 +30,7 @@ def home(request):
     substitutes = subtitute.objects.filter(leaveRequest_id__in=leaves)
     projects = project.objects.filter(subtitute__in=substitutes)
     
-       # Create a list to store leave types applied for
+    # Create a list to store leave types applied for
     leave_types_applied_for = []
 
     # Iterate over each leave request to get its leave type
@@ -43,13 +46,24 @@ def home(request):
     
     return render(request, 'LeaveApp/index.html', context)
 
-@login_required
+@login_required(login_url='login')
+def pro_file(request):
+    """Handles all staff profile"""
+    if not request.user.is_authenticated:
+       return redirect(f"{settings.LOGIN_URL}?next={request.path}")
+    user = request.user
+    employee_instance = get_object_or_404(employee, user_id=user)
+    
+    context = {'employee_instance': employee_instance,}
+    return render(request, 'LeaveApp/profile.html', context)
+
+@login_required(login_url='login')
 def dash_board(request):
     """Home page views function and its context"""
     context = {}
     return render(request, 'LeaveApp/dashboard.html', context)
 
-@login_required
+@login_required(login_url='login')
 @permission_required("LeaveApp.add_user")
 def update_employee(request):
     """View function to update the employee details"""
@@ -62,7 +76,7 @@ def update_employee(request):
         form = EmpForm(request.POST, instance=newemp)
         if form.is_valid():
             newemp = form.save()
-            return redirect('create-leave')
+            return redirect('create-leave') # Redirect to view all employee page.
         else:
             messages.error(request, 'Failed to update employee details. Please check the form.')
     else:
@@ -70,7 +84,7 @@ def update_employee(request):
 
     return render(request, 'LeaveApp/update-emp.html', {'form': form})
 
-@login_required
+@login_required(login_url='login')
 def create_leave(request):
     try:
         # employee_instance = employee.objects.get(user_id=request.user)
@@ -126,7 +140,7 @@ def create_leave(request):
     context = {'leave_form': leave_form, 'project_form': project_form, 'subtitute_form': subtitute_form, 'leave_types': leave_types}
     return render(request, 'LeaveApp/create-leave.html', context)
 
-@login_required
+@login_required(login_url='login')
 def leave_detail(request, leave_id):
     """leave list function"""
     user = request.user
@@ -139,7 +153,8 @@ def leave_detail(request, leave_id):
                }
     return render(request, 'LeaveApp/leave-detail.html', context)
 
-@login_required
+@login_required(login_url='login')
+@unauthenticated_user
 @permission_required("LeaveApp.can_add_new_employee")
 def register_staff(request):
     """This view handles the staff registration route"""
@@ -161,6 +176,7 @@ def register_staff(request):
     context = {'form': form}
     return render(request, 'registration/register.html', context)
 
+@unauthenticated_user
 def login_staff(request):
     """This view handles the staff login route"""
    

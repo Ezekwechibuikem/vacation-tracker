@@ -1,0 +1,56 @@
+{% extends 'LeaveApp/base.html' %}
+
+{% block content %}
+    <div class="row">
+        <!-- BEGIN col-6 -->
+        <div class="col-xl-12">
+            <!-- BEGIN card -->
+            <div class="card border-0 mb-3 overflow-hidden bg-gray-600 text-white">
+                <!-- BEGIN card-body -->
+                <div class="card-body">
+                    <!-- BEGIN row -->
+                    <div class="row">
+                        <!-- BEGIN col-7 -->
+                        <div class="col-xl-12 col-lg-12">
+                            <!-- BEGIN title -->
+                            <div class="mb-3 text-gray-300">
+                                <h2><p><b>Employee Details</b></p></h2>
+                                <h4><p><b>Email: {{ user.email }}</b></p></h4>
+                                <h4><p><b>Name: {{ user.last_name }} {{ user.first_name }}</b></p></h4>
+                                <h4><p><b>Department: {{ employee_instance.department }}</b></p></h4>
+                                <h4><p><b>Unit: {{ employee_instance.unit }}</b></p></h4>
+                            </div>
+                            <!-- END title -->
+                            <!-- BEGIN total-sales -->
+                            <div class="d-flex mb-1">
+                                {% comment %} <h2 class="mb-0">$<span data-animation="number" data-value="64559.25">64,559.25</span></h2> {% endcomment %}
+                            </div>
+                            <!-- END total-sales -->
+                            <!-- BEGIN percentage -->
+                            <div class="mb-3 text-gray-500">
+                                
+                            </div>
+                            <!-- END percentage -->
+                            
+                            <!-- BEGIN row -->
+                            
+                            <!-- END row -->
+                        </div>
+                        <!-- END col-7 -->
+                        <!-- BEGIN col-5 -->
+                        
+                        <!-- END col-5 -->
+                    </div>
+                    <!-- END row -->
+                </div>
+                <!-- END card-body -->
+            </div>
+            <!-- END card -->
+        </div>
+        <!-- END col-6 -->
+        <!-- BEGIN col-6 -->
+        <!-- END col-6 -->
+    </div>
+    <!-- END panel -->
+{% endblock %} 
+

@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'LeaveApp.middleware.RedirectMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -39,7 +40,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db' 
+SESSION_COOKIE_AGE = 3600  
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  
 
 ROOT_URLCONF = 'System.urls'
 
@@ -116,7 +122,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'LeaveApp/static/assets')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/assets')
 
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = 'accounts/login/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

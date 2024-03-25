@@ -14,6 +14,7 @@
         </div>
         <!-- <div class="menu-header">Navigation</div> -->
         <div class="menu-header"></div>
+        <!-- for the dashboard -->
         <div class="menu-item">
             <a href="{% url 'index' %}" class="menu-link">
                 <div class="menu-icon">
@@ -22,50 +23,127 @@
                 <div class="menu-text">Dashboard</div>
             </a>
         </div>
-        <div class="menu-item">
-            <a href="{% url 'create-leave' %}" class="menu-link">
+
+        <!-- for the leave -->
+        <div class="menu-item has-sub">
+            <a href="javascript:;" class="menu-link">
                 <div class="menu-icon">
-                    <i class="fas fa-lg fas fa-pencil-alt fa-fw"></i> 
+                    <i class="fa fa-cash-register"></i>
                 </div>
-                <div class="menu-text">Apply</div>
+                <div class="menu-text">Leave</div> 
+                <div class="menu-caret"></div>
             </a>
+            <div class="menu-submenu">
+                <div class="menu-item">
+                    <a href="{% url 'create-leave' %}" target="_blank" class="menu-link">
+                        <div class="menu-text">Apply</div>
+                    </a>
+                </div>
+                {% if perms.LeaveApp.can_add_types_assign %}
+                <div class="menu-item">
+                    <a href="#" target="_blank" class="menu-link">
+                        <div class="menu-text">Leave Types</div>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="#" target="_blank" class="menu-link">
+                        <div class="menu-text">Assign leave</div>
+                    </a>
+                </div>
+                {% endif %}
+                {% if perms.LeaveApp.can_see_submitted_leave %}
+                <div class="menu-item">
+                    <a href="#" target="_blank" class="menu-link">
+                        <div class="menu-text">Submitted leaves</div>
+                    </a>
+                </div>
+                {% endif%}
+                <div class="menu-item">
+                    <a href="#" target="_blank" class="menu-link">
+                        <div class="menu-text">Leave Balance</div>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="#" target="_blank" class="menu-link">
+                        <div class="menu-text">Leave Recall</div>
+                    </a>
+                </div>
+                {% if perms.LeaveApp.can_see_approved_leave %}
+                <div class="menu-item">
+                    <a href="#" target="_blank" class="menu-link">
+                        <div class="menu-text">Approved leaves</div>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
         </div>
+
+        <!-- for the Entitlement -->
+        <div class="menu-item has-sub">
+            <a href="javascript:;" class="menu-link">
+                <div class="menu-icon">
+                    <i class="fa fa-cash-register"></i>
+                </div>
+                <div class="menu-text">Entitlement</div> 
+                <div class="menu-caret"></div>
+            </a>
+            <div class="menu-submenu">
+                <div class="menu-item">
+                    <a href="#" target="_blank" class="menu-link">
+                        <div class="menu-text">View</div>
+                    </a>
+                </div>
+                {% if perms.LeaveApp.add_leave_entitlement%}
+                <div class="menu-item">
+                    <a href="#" target="_blank" class="menu-link">
+                        <div class="menu-text">Create New</div>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- for the Employee -->
+        {% if perms.LeaveApp.can_add_new_employee %}
+        <div class="menu-item has-sub">
+            <a href="javascript:;" class="menu-link">
+                <div class="menu-icon">
+                    <i class="fa fa-cash-register"></i>
+                </div>
+                <div class="menu-text">Employee</div> 
+                <div class="menu-caret"></div>
+            </a>
+            <div class="menu-submenu">
+                <div class="menu-item">
+                    <a href="pos_customer_order.html" target="_blank" class="menu-link">
+                        <div class="menu-text">Create Employee</div>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="pos_kitchen_order.html" target="_blank" class="menu-link">
+                        <div class="menu-text">View Employee</div>
+                    </a>
+                </div>
+                              
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- for the Report -->
         <div class="menu-item">
             <a href="{% url 'dashboard' %}" class="menu-link">
                 <div class="menu-icon">
-                    <i class="fas fa-lg fa-fw me-10px fa-file"></i> 
-                </div>
-                <div class="menu-text">Leave Recall</div>
-            </a>
-        </div>
-        <div class="menu-item">
-            <a href="{% url 'dashboard' %}" class="menu-link">
-                <div class="menu-icon">
-                    <i class="fas fa-lg fa fa-cash-register"></i> 
-                </div>
-                <div class="menu-text">Leave Balance</div>
-            </a>
-        </div>
-        <div class="menu-item">
-            <a href="{% url 'update-emp' %}" class="menu-link">
-                <div class="menu-icon">
-                    <i class="fas fa-lg fa-fw me-10px fa-registered"></i> 
-                </div>
-                <div class="menu-text">Assign leave</div>
-            </a>
-        </div>
-        <div class="menu-item">
-            <a href="{% url 'dashboard' %}" class="menu-link">
-                <div class="menu-icon">
-                    <i class="fas fa-lg fa-fw me-10px fa-receipt"></i> 
+                    <i class="fa fa-pencil-alt"></i> 
                 </div>
                 <div class="menu-text">Report</div>
             </a>
         </div>
+
+        <!-- for the faq -->
         <div class="menu-item">
             <a href="{% url 'dashboard' %}" class="menu-link">
                 <div class="menu-icon">
-                    <i class="fas fa-lg fa-fw me-10px fa-pen-clip"></i> 
+                    <i class="fa fa-table"></i> 
                 </div>
                 <div class="menu-text">FAQ</div>
             </a>
