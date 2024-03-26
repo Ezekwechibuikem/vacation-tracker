@@ -8,16 +8,7 @@
     <!-- BEGIN content-container -->
 	<div class="app-content-padding flex-grow-1 overflow-hidden ps" data-scrollbar="true" data-height="100%" style="height: 100%;">
 		<!-- BEGIN breadcrumb -->
-		<ol class="breadcrumb float-xl-end">
-            <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-			<!-- <li class="breadcrumb-item"><a href="">Home</a></li> -->
-			<!-- <li class="breadcrumb-item"><a href="javascript:;">Page Options</a></li> -->
-			<li class="breadcrumb-item active">Create</li>
-		</ol>
-		<!-- END breadcrumb -->
-		<!-- BEGIN page-header -->
-		<h1 class="page-header">Leave Request <small>Verify the number of leave entitlement you have as an employee</small></h1>
-		<!-- END page-header -->
+		
 		<!-- BEGIN panel -->
 		<div class="panel panel-inverse">
 			<div class="panel-heading">
@@ -94,26 +85,25 @@
                             <input class="form-control parsley-validated" type="text" id="date_applied" name="date_applied" placeholder="Date Applied" autocomplete="off" data-required="true" readonly />
                         </div> {% endcomment %}
                     </div>
-                   <div class="table-responsive">
-                        <table id="myTable" class="table mb-0 align-middle">
-                            <label class="form-label col-form-label col-md-12"><h6> Please indicate the name of the staff who will cover for you during your absence while on leave. </h6></label>
-                            <tbody>
-                                <tr>
-                                    <td class="col-lg-4">
-                                        <input class="form-control parsley-validated" type="text" id="project_name" name="project_name" placeholder="Project Name" autocomplete="off" data-required="true"/>
-                                    </td>
-                                    <td class="col-lg-4">
-                                        <input class="form-control parsley-validated" type="text" id="sub_name" name="sub_name" placeholder="Backstop" autocomplete="off" data-required="true"/>
-                                    </td>
-                                    <td class="col-lg-4">
-                                        <button type="button" onclick="addRow()" class="btn btn-sm btn-primary w-60px me-1">Add</button>
-                                        <button type="button" onclick="deleteRow()" class="btn btn-sm btn-white w-60px">Delete</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="table-responsive">
+                            <table id="myTable" class="table mb-0 align-middle">
+                                <label class="form-label col-form-label col-md-12"><h6> Please indicate the name of the staff who will cover for you during your absence while on leave. </h6></label>
+                                <tbody>
+                                    <tr>
+                                        <td class="col-lg-4">
+                                            <input class="form-control parsley-validated" type="text" id="project_name" name="project_name" placeholder="Project Name" autocomplete="off" data-required="true"/>
+                                        </td>
+                                        <td class="col-lg-4">
+                                            <input class="form-control parsley-validated" type="text" id="sub_name" name="sub_name" placeholder="Backstop" autocomplete="off" data-required="true"/>
+                                        </td>
+                                        <td class="col-lg-4">
+                                            <button type="button" onclick="addRow()" class="btn btn-sm btn-primary w-60px me-1">Add</button>
+                                            <button type="button" onclick="deleteRow()" class="btn btn-sm btn-white w-60px">Delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                     </div>
-
                     <div class="row">
                         <div class="col-lg-12">
                             <label for="resumption-date" class="form-label col-form-label col-md-8">Reason(s) for leave<small> if necessary</small></label>
@@ -125,18 +115,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-12" style="margin-top: 20px;">
-                        <div class="col-md-12 text-end">
-                            <a href="{% url 'index' %}" class="btn btn-secondary">Cancel</a>
-                            <a href="javascript:;" data-click="swal-primary" class="btn btn-primary me-1">Submit</a>
+                    <div class="row">
+                        <div class="col-lg-12" style="margin-top: 20px;">
+                            <div class="col-md-12 text-end">
+                                <a href="{% url 'index' %}" class="btn btn-secondary">Cancel</a>
+                                <a href="javascript:;" data-click="swal-primary" class="btn btn-primary me-1">Submit</a>
+                            </div>
                         </div>
                     </div>
                 </form>
             </div>
 		</div>
         <!-- BEGIN scroll-top-btn -->
-		<a href="javascript:;" class="btn btn-icon btn-circle btn-theme btn-scroll-to-top"
-        data-toggle="scroll-to-top"><i class="fa fa-angle-up"></i></a>
+		{% comment %} <a href="javascript:;" class="btn btn-icon btn-circle btn-theme btn-scroll-to-top"
+        data-toggle="scroll-to-top"><i class="fa fa-angle-up"></i></a> {% endcomment %}
         <!-- END scroll-top-btn -->
        
        
