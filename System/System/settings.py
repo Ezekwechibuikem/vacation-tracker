@@ -65,6 +65,8 @@ TEMPLATES = [
     },
 ]
 
+# AUTH_USER_MODEL = 'LeaveApp.User'
+
 WSGI_APPLICATION = 'System.wsgi.application'
 
 
@@ -74,14 +76,13 @@ WSGI_APPLICATION = 'System.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Systemdb',  
+        'NAME': 'LeaveDb',  
         'USER': 'postgres',  
         'PASSWORD': 'P@ssw0rd',
         'HOST': 'localhost',
         'PORT': '5432',  
     }
 }
-
 
 
 # Password validation

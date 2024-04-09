@@ -115,7 +115,8 @@
             </a>
             <div class="menu-submenu">
                 <div class="menu-item">
-                    <a href="pos_customer_order.html" target="_blank" class="menu-link">
+                    {% comment %} <a href="{% url 'update-emp' user_id=1 %}" target="_blank" class="menu-link"> {% endcomment %}
+                    <a href="{% url 'register' %}" target="_blank" class="menu-link">
                         <div class="menu-text">Create Employee</div>
                     </a>
                 </div>

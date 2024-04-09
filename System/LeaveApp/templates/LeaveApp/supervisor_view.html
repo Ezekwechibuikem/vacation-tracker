@@ -1,0 +1,14 @@
+{% extends 'LeaveApp/base.html' %}
+
+{% block sidebar %}
+  <h3>Pending Leave Requests</h3>
+  <ul>
+    {% for request in subordinate_requests %}
+      <li>
+        {{ request.employee.user.username }} - {{ request.start_date }} to {{ request.end_date }}
+        <a href="{% url 'approve_leave_request' request.id %}">Approve</a>
+        <a href="{% url 'reject_leave_request' request.id %}">Reject</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

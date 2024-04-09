@@ -1,0 +1,40 @@
+{% extends 'LeaveApp/base.html' %}
+
+<title>Approval {% block title %}
+    {% endblock %}
+</title>
+
+{% block content %}
+
+  <h2>Manage Leave Requests</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Employee</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Leave Type</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for leave_request in leave_requests %}
+        <tr>
+          <td>{{ leave_request.emp_id.user_id.get_full_name }}</td>
+          <td>{{ leave_request.start_date }}</td>
+          <td>{{ leave_request.end_date }}</td>
+          <td>{{ leave_request.leave_type_id.type_name }}</td>
+          <td>
+            <form method="post" style="display: inline;">
+              {% csrf_token %}
+              <input type="hidden" name="leave_id" value="{{ leave_request.leaveRequest_id }}">
+              <button type="submit" name="action" value="approve">Approve</button>
+              <button type="submit" name="action" value="reject">Reject</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}
