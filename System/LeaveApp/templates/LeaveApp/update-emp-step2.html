@@ -1,0 +1,20 @@
+{% extends 'LeaveApp/base.html' %}
+{% load static %}
+{% block title %}Update Step 2{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>Update Employee - Step 2</h2>
+    <p>Department: {{ user.employee_instance.department.depart_name }}</p>
+    <p>Unit: {{ user.employee.unit.unit_name }}</p>
+    <p>Role: {{ user.userrole.get_role_display }}</p>
+    <p>Username: {{ user.username }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ emp_form.supervisor.id_for_label }}">Supervisor:</label>
+            {{ emp_form.supervisor }}
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
+{% endblock %}
