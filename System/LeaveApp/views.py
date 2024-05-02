@@ -6,10 +6,9 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 # from django.core.exceptions import PermissionDenied
-from .models import employee, project, subtitute, leave_type, leave_entitlement, leaveRequest
+from .models import employee, project, subtitute, leave_type, leaveRequest, Supervisor 
 from .forms import RegisterForm, LeaveForm, EmpForm, SubtituteForm, ProjectForm, TypeForm
 from django.contrib import messages
-
 
 
 @login_required(login_url='login')
@@ -49,12 +48,23 @@ def home(request):
 @login_required(login_url='login')
 def pro_file(request):
     """Handles all staff profile"""
-    if not request.user.is_authenticated:
-       return redirect(f"{settings.LOGIN_URL}?next={request.path}")
     user = request.user
-    employee_instance = get_object_or_404(employee, user_id=user)
+    employee_instance = employee.objects.get(user_id=user)
+    supervisor_name = ""
+
+    try:
+        supervisor_instance = Supervisor.objects.get(subordinate=employee_instance)
+        supervisor_employee = supervisor_instance.supervisor_employee
+        supervisor_user = supervisor_employee.user_id
+        supervisor_name = supervisor_user.get_full_name()
+    except Supervisor.DoesNotExist:
+        supervisor_name = "No Supervisor Assigned"
     
-    context = {'employee_instance': employee_instance,}
+    context = {
+        'user': user,
+        'employee_instance': employee_instance,
+        'supervisor_name': supervisor_name,
+    }
     return render(request, 'LeaveApp/profile.html', context)
 
 @login_required(login_url='login')
@@ -140,6 +150,7 @@ def create_leave(request):
     context = {'leave_form': leave_form, 'project_form': project_form, 'subtitute_form': subtitute_form, 'leave_types': leave_types}
     return render(request, 'LeaveApp/create-leave.html', context)
 
+
 @login_required(login_url='login')
 def leave_detail(request, leave_id):
     """leave list function"""
@@ -200,4 +211,3 @@ def logout_staff(request):
     logout(request)
     messages.success(request, ("You Were Logged Out!"))
     return redirect('login')
-        

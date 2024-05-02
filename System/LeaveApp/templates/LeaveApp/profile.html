@@ -19,6 +19,13 @@
                                 <h4><p><b>Name: {{ user.last_name }} {{ user.first_name }}</b></p></h4>
                                 <h4><p><b>Department: {{ employee_instance.department }}</b></p></h4>
                                 <h4><p><b>Unit: {{ employee_instance.unit }}</b></p></h4>
+                                {% if employee_instance.subordinates.exists %}
+                                {% with supervisor_instance=employee_instance.subordinates.first %}
+                                    <h4><p><b>Supervisor: {{ supervisor_instance.supervisor_employee.user_id.get_full_name }}</b></p></h4>
+                                {% endwith %}
+                                {% else %}
+                                    <h4><p><b>No Supervisor Assigned</b></p></h4>
+                                {% endif %}
                             </div>
                             <!-- END title -->
                             <!-- BEGIN total-sales -->
@@ -53,4 +60,3 @@
     </div>
     <!-- END panel -->
 {% endblock %} 
-
