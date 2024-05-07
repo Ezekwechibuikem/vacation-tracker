@@ -37,9 +37,15 @@
 						</div>
 						<small></small>
 					</div>
-					<div class="icon">
+					<a href="{% url 'admin:login' %}">
+						<div class="icon">
+							<i class="fa fa-lock"></i>
+						</div>
+					</a>
+					
+					{% comment %} <div class="icon">
 						<i class="fa fa-lock"></i>
-					</div>
+					</div> {% endcomment %}
 				</div>
 				<!-- END login-header -->
 				
@@ -60,21 +66,17 @@
 							<div class="login-buttons">
 								<button type="submit" class="btn btn-theme h-45px d-block w-100 btn-lg">Sign me in</button>
 							</div>
-							<div class="text-gray-500" style="margin-top: 20px;">
+							{% comment %} <div class="text-gray-500" style="margin-top: 20px;">
 								For Admin only click <a href="{% url 'admin:login' %}">here</a>								.
-							</div>
+							</div> {% endcomment %}
 						</form>
                         {% comment %} {% for message in messages %}
                             <p>{{message}}</p>
                         {% endfor %}  {% endcomment %}
 						{% for message in messages %}
 							{% if message.tags %}
-								{% if 'success' in message.tags %}
-									<div class="alert alert-success">
-								{% elif 'error' in message.tags %}
+								{% if 'error' in message.tags %}
 									<div class="alert alert-danger">
-								{% elif 'info' in message.tags %}
-									<div class="alert alert-info">
 								{% else %}
 									<div class="alert alert-secondary">
 								{% endif %}

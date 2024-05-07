@@ -11,5 +11,7 @@ urlpatterns = [
     path('', views.login_staff, name='login'),
     path('logout/', views.logout_staff, name='logout'),
     path('register/', views.register_staff, name='register'),
-    
+    # path('approve-reject/', views.approve_reject_leave, name='approve_reject'),
+    path('leave-requests/', views.view_leave_requests, name='leave_requests'),
+    path('leave-requests/<int:leave_request_id>/approve-reject/', views.approve_reject_leave, name='approve_reject_leave'),
 ]

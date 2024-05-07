@@ -9,7 +9,7 @@
     <h1>Leave List</h1>
 
     <h2>Employee Details</h2>
-    <p>Email: {{ employee_instance.email }}</p>
+    <p>Email: {{ user.email }}</p>
     <p>Department: {{ employee_instance.department }}</p>
     <p>Unit: {{ employee_instance.unit }}</p>
 </div> 
@@ -19,21 +19,24 @@
 <p><strong>Date Applied:</strong> {{ leave.date_applied }}</p>
 <p><strong>Start Date:</strong> {{ leave.start_date }}</p>
 <p><strong>End Date:</strong> {{ leave.end_date }}</p>
-<p><strong>Status:</strong> {% if leave.status %}Approved{% else %}Pending{% endif %}</p>
+{% comment %} <p><strong>Status:</strong> {% if leave.status %}Approved{% else %}Pending{% endif %}</p> {% endcomment %}
+<p><strong>Status:</strong> {{ status_update }}</p>
+<p><strong>Backstop : </strong> {{subtitute_name}}</p>
+<p><strong>Project Name : </strong> {{project_name}}
 <!-- You can add more details as needed -->
-<div class="row">
+{% comment %} <div class="row">
     <h2>Substitutes</h2>
     <ul>
         {% for substitute in substitutes %}
-        <li>{{ substitute.sub_name }}</li>
+        <li>{{ substitute_name }}</li>
         {% endfor %}
     </ul>
 
     <h2>Projects</h2>
     <ul>
         {% for project in projects %}
-        <li>{{ project.project_name }}</li>
+        <li>{{ project_name }}</li>
         {% endfor %}
     </ul>
-</div>
+</div> {% endcomment %}
 {% endblock %}

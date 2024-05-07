@@ -58,11 +58,12 @@ class LeaveForm(forms.ModelForm):
         else:
             self.fields['leave_type_id'].queryset = leave_type.objects.all()
 
-class SupervisorLeaveApprovalForm(forms.ModelForm):
-    class Meta:
-        model = leaveRequest
-        fields = ['status', 'sub_comments']
-
+class LeaveApprovalForm(forms.Form):
+    """Form for the supervisor approval and rejection"""
+    status = forms.ChoiceField(choices=leaveRequest.STATUS_CHOICES)
+    sub_comments = forms.CharField(widget=forms.Textarea, required=False)
+    
+    
 class ProjectForm(forms.ModelForm):
     """ Function handling the project form """
     class Meta:

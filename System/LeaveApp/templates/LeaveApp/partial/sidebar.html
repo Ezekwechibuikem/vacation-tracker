@@ -35,43 +35,53 @@
             </a>
             <div class="menu-submenu">
                 <div class="menu-item">
-                    <a href="{% url 'create-leave' %}" target="_blank" class="menu-link">
+                    <a href="{% url 'create-leave' %}" class="menu-link">
                         <div class="menu-text">Apply</div>
                     </a>
                 </div>
                 {% if perms.LeaveApp.can_add_types_assign %}
                 <div class="menu-item">
-                    <a href="#" target="_blank" class="menu-link">
+                    <a href="#" class="menu-link">
                         <div class="menu-text">Leave Types</div>
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a href="#" target="_blank" class="menu-link">
+                    <a href="#" class="menu-link">
                         <div class="menu-text">Assign leave</div>
                     </a>
                 </div>
                 {% endif %}
                 {% if perms.LeaveApp.can_see_submitted_leave %}
                 <div class="menu-item">
-                    <a href="#" target="_blank" class="menu-link">
+                    <a href="{% url 'leave_requests' %}" class="menu-link">
                         <div class="menu-text">Submitted leaves</div>
+                        {% comment %} <div class="menu-badge">10</div> {% endcomment %}
+                        
                     </a>
                 </div>
                 {% endif%}
                 <div class="menu-item">
-                    <a href="#" target="_blank" class="menu-link">
+                    <a href="#" class="menu-link">
                         <div class="menu-text">Leave Balance</div>
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a href="#" target="_blank" class="menu-link">
+                    <a href="#" class="menu-link">
                         <div class="menu-text">Leave Recall</div>
                     </a>
                 </div>
                 {% if perms.LeaveApp.can_see_approved_leave %}
                 <div class="menu-item">
-                    <a href="#" target="_blank" class="menu-link">
+                    <a href="#" class="menu-link">
                         <div class="menu-text">Approved leaves</div>
+                    </a>
+                </div>
+                {% endif %}
+                {% if perms.LeaveApp.can_see_approved_leave %}
+                <div class="menu-item">
+                    <a href="#" class="menu-link">
+                        <div class="menu-text">Rejected leaves</div>
+                        {% comment %} <div class="menu-badge">3</div> {% endcomment %}
                     </a>
                 </div>
                 {% endif %}
@@ -89,13 +99,13 @@
             </a>
             <div class="menu-submenu">
                 <div class="menu-item">
-                    <a href="#" target="_blank" class="menu-link">
+                    <a href="#" class="menu-link">
                         <div class="menu-text">View</div>
                     </a>
                 </div>
                 {% if perms.LeaveApp.add_leave_entitlement%}
                 <div class="menu-item">
-                    <a href="#" target="_blank" class="menu-link">
+                    <a href="#" class="menu-link">
                         <div class="menu-text">Create New</div>
                     </a>
                 </div>
@@ -115,12 +125,12 @@
             </a>
             <div class="menu-submenu">
                 <div class="menu-item">
-                    <a href="pos_customer_order.html" target="_blank" class="menu-link">
+                    <a href="#" class="menu-link">
                         <div class="menu-text">Create Employee</div>
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a href="pos_kitchen_order.html" target="_blank" class="menu-link">
+                    <a href="#"  class="menu-link">
                         <div class="menu-text">View Employee</div>
                     </a>
                 </div>
@@ -148,6 +158,8 @@
                 <div class="menu-text">FAQ</div>
             </a>
         </div>
+        print("sidebar_view function called")
+
         <!-- BEGIN minify-button -->
         <div class="menu-item d-flex">
             <a href="javascript:;"
