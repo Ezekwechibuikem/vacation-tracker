@@ -202,7 +202,8 @@ def approve_reject_leave(request, leave_request_id):
             leave_request.sub_comments = sub_comments
             leave_request.save()
 
-            return redirect('view_leave_requests')
+            # return redirect('view_leave_requests')
+            return redirect('index')
     else:
         form = LeaveApprovalForm()
 
