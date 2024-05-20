@@ -2,16 +2,46 @@
 {% load static %}
 
 {% block content %}
-  <h1>Approve/Reject Leave Request</h1>
-  <p>Employee: {{ leave_request.emp_id.user_id.username }}</p>
-  <p>Leave Type: {{ leave_request.leave_type_id.type_name }}</p>
-  <p>Start Date: {{ leave_request.start_date }}</p>
-  <p>End Date: {{ leave_request.end_date }}</p>
-  <p>No of Days: {{ leave_request.no_of_days }}</p>
-  <p>Resumption Date: {{leave_request.resumption_date}}</p>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
-  </form>
+  <div class="app-content-padding flex-grow-1 overflow-hidden ps" data-scrollbar="true" data-height="100%" style="height: 100%;">
+  	<!-- BEGIN breadcrumb -->
+		<ol class="breadcrumb float-xl-end">
+      <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+			<li class="breadcrumb-item"><a href="">Approveal</a></li>
+			<!-- <li class="breadcrumb-item"><a href="javascript:;">Page Options</a></li>
+			<li class="breadcrumb-item active">Page with Footer</li> -->
+		</ol>
+		<div class="d-sm-flex align-items-center mb-3">
+			<a href="#" class="btn btn-dark me-2 text-truncate" >
+				<span>DASHBOARD</span>
+			</a>
+		</div>
+    <!-- BEGIN panel -->
+    <div class="panel panel-inverse">
+      <div class="panel-heading">
+        <h4 class="panel-title">Supervisor's Approval Page</h4>
+          <h4 class="panel-title"></h4>
+          <div class="panel-heading-btn">
+              <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
+              <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
+              <a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse"><i class="fa fa-minus"></i></a>
+              <a href="javascript:;" class="btn btn-xs btn-icon btn-danger" data-toggle="panel-remove"><i class="fa fa-times"></i></a>
+          </div>
+      </div>
+      <div class="row" style="margin-top: 20px; margin-left: 10px;">
+        <p>Employee: {{ leave_request.emp_id.user_id.first_name }} {{ leave_request.emp_id.user_id.last_name }}</p>
+        <p>Leave Type: {{ leave_request.leave_type_id.type_name }}</p>
+        <p>Start Date: {{ leave_request.start_date }}</p>
+        <p>End Date: {{ leave_request.end_date }}</p>
+        <p>No of Days: {{ leave_request.no_of_days }}</p>
+        <p>Resumption Date: {{leave_request.resumption_date}}</p>
+        <p>Backstop : {{ subtitute_instance.sub_name }}</p>
+        <p>Project : {{project_instance.project_name}}
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
 {% endblock %}

@@ -12,7 +12,14 @@
     <!-- END navbar-header -->
     <!-- BEGIN header-nav -->
     <div class="navbar-nav">
-   
+        {% if perms.LeaveApp.can_see_submitted_leave %}
+            <div class="navbar-item dropdown">
+                <a href="#" data-bs-toggle="dropdown" class="navbar-link dropdown-toggle icon">
+                    <i class="fa fa-bell"></i>
+                    <span class="badge">{{ pending_leave_requests_count }}</span>
+                </a>
+            </div>
+        {% endif%}
         <div class="navbar-item navbar-user dropdown">
             <a href="#" class="navbar-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
                 <span>

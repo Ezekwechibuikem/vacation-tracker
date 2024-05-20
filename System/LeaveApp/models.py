@@ -40,7 +40,7 @@ class UserRole(models.Model):
     role = models.IntegerField(choices=ROLE_CHOICES)
       
     def __str__(self):
-        return f"{self.get_role_display()}"
+        return f"{self.user.username} is a {self.get_role_display()}"
 
 class employee(models.Model):
     """ Represents all the properties of the employee """
@@ -53,7 +53,7 @@ class employee(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            existing_employee = employee.objects.filter(user=self.user)
+            existing_employee = employee.objects.filter(user_id=self.user_id)
             if existing_employee.exists():
                 self.pk = existing_employee.first().pk
         super().save(*args, **kwargs)

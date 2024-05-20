@@ -5,39 +5,139 @@
 </title>
 
 {% block content %}
-<div class="row">
-    <h1>Leave List</h1>
+<div class="app-content-padding flex-grow-1 overflow-hidden ps" data-scrollbar="true" data-height="100%" style="height: 100%;">
+    <!-- BEGIN breadcrumb -->
+    
+    <!-- BEGIN panel -->
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            {% comment %} <h4 class="panel-title" data-bs-toggle="offcanvas" class="btn btn-default" href="#offcanvasBottomExample">
+                <button type="button">Leave balance</button></h4> {% endcomment %}
+            <h4 class="panel-title"></h4>
+            <div class="panel-heading-btn">
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse"><i class="fa fa-minus"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-danger" data-toggle="panel-remove"><i class="fa fa-times"></i></a>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 20px; margin-left: 10px;">
+            <h1 style="text-align: center; "><b>Public Health Information Surveillance Solution and Systems [PHIS3]</b></h1>
+            <h2 style="text-align: center; background-color: #f0f0f0; padding: 10px; display: inline-block; width: 97.6%; margin-rignt: 10px; margin-left: 10px;">Leave Application Form</h2>
+            <div class="form-group row" style="margin-top: 10px; ">
+                <div class="col-lg-4"">
+                    <input class="form-control parsley-validated" type="text" placeholder="Employee Full Name" data-required="true" readonly/>
+                </div>
+                <div class="col-lg-8">
+                    <input class="form-control parsley-validated" type="text" value="{{ user.first_name }} {{ user.last_name }}" data-required="true" readonly/>
+                </div>
+            </div>
+            <div class="form-group row" style="margin-top: 10px; ">
+                <div class="col-lg-4">
+                    <input class="form-control parsley-validated" type="text" placeholder="Employee Full Name" data-required="true" readonly/>
+                </div>
+                <div class="col-lg-8">
+                    <input class="form-control parsley-validated" type="text" value="{{ user.email }}" data-required="true" readonly/>
+                </div>
+            </div>
+            <div class="form-group row" style="margin-top: 10px; ">
+                <div class="col-lg-4">
+                    <input class="form-control parsley-validated" type="text" placeholder="Department" data-required="true" readonly style="font-weight: bold;">
+                </div>
+                <div class="col-lg-8">
+                    <input class="form-control parsley-validated" type="text" value="{{ employee_instance.department }}" data-required="true" readonly/>
+                </div>
+            </div>
+            <div class="form-group row" style="margin-top: 10px; ">
+                <div class="col-lg-4">
+                    <input class="form-control parsley-validated" type="text" placeholder="Unit" data-required="true" readonly style="font-weight: bold;">
+                </div>
+                <div class="col-lg-8">
+                    <input class="form-control parsley-validated" type="text" value="{{ employee_instance.unit }}" data-required="true" readonly/>
+                </div>
+            </div>
+            <div class="row" style="margin-left: 3px; ">
+                <div class="col-lg-4">
+                    <label for="leaveType" class="form-label col-form-label col-md-8"><b>Type of leave</b></label>
+                </div>
+                <div class="col-lg-8">
+                    <label for="end_date" class="form-label col-form-label col-md-8"><b>Status</b></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <input class="form-control parsley-validated" type="text" value="{{ leave.leave_type_id.type_name }}" data-required="true" readonly/>
+                </div>
+                <div class="col-lg-8">
+                    <input class="form-control parsley-validated" type="text" value="{{ status_update }}" data-required="true" readonly/>
+                </div>
+            </div>
+            <div class="row" style="margin-left: 3px; ">
+                <div class="col-lg-4">
+                    <label for="leaveType" class="form-label col-form-label col-md-8"><b>Date Applied</b></label>
+                </div>
+                <div class="col-lg-8">
+                    <label for="end_date" class="form-label col-form-label col-md-8"><b>Number of Days</b></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <input class="form-control parsley-validated" type="text" value="{{ leave.date_applied }}" data-required="true" readonly/>
+                </div>
+                <div class="col-lg-8">
+                    <input class="form-control parsley-validated" type="text" value="{{ leave.no_of_days }}" data-required="true" readonly/>
 
-    <h2>Employee Details</h2>
-    <p>Email: {{ user.email }}</p>
-    <p>Department: {{ employee_instance.department }}</p>
-    <p>Unit: {{ employee_instance.unit }}</p>
-</div> 
- 
-<h1>Leave Detail</h1>
-<p><strong>Leave Type:</strong> {{ leave.leave_type_id.type_name }}</p>
-<p><strong>Date Applied:</strong> {{ leave.date_applied }}</p>
-<p><strong>Start Date:</strong> {{ leave.start_date }}</p>
-<p><strong>End Date:</strong> {{ leave.end_date }}</p>
-{% comment %} <p><strong>Status:</strong> {% if leave.status %}Approved{% else %}Pending{% endif %}</p> {% endcomment %}
-<p><strong>Status:</strong> {{ status_update }}</p>
-<p><strong>Backstop : </strong> {{subtitute_name}}</p>
-<p><strong>Project Name : </strong> {{project_name}}
-<p><strong>Reasons : </strong> {{leave.comments}}
-<!-- You can add more details as needed -->
-{% comment %} <div class="row">
-    <h2>Substitutes</h2>
-    <ul>
-        {% for substitute in substitutes %}
-        <li>{{ substitute_name }}</li>
-        {% endfor %}
-    </ul>
+                </div>
+            </div>
+            <div class="row" style="margin-left: 3px; ">
+                <div class="col-lg-4">
+                    <label for="leaveType" class="form-label col-form-label col-md-8"><b>Start Date</b></label>
+                </div>
+                <div class="col-lg-8">
+                    <label for="end_date" class="form-label col-form-label col-md-8"><b>End Date</b></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <input class="form-control parsley-validated" type="text" value="{{ leave.start_date }}" data-required="true" readonly/>
+                </div>
+                <div class="col-lg-8">
+                    <input class="form-control parsley-validated" type="text" value="{{ leave.end_date }}" data-required="true" readonly/>
+                </div>
+            </div>
+            <div class="row" style="margin-left: 3px; ">
+                <div class="col-lg-4">
+                    <label for="leaveType" class="form-label col-form-label col-md-8"><b>Backstop</b></label>
+                </div>
+                <div class="col-lg-8">
+                    <label for="end_date" class="form-label col-form-label col-md-8"><b>Project Nmae</b></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <input class="form-control parsley-validated" type="text" value="{{subtitute_name}}" data-required="true" readonly/>
+                </div>
+                <div class="col-lg-8">
+                    <input class="form-control parsley-validated" type="text" value="{{project_name}}" data-required="true" readonly/>
+                </div>
+            </div>
+            <div class="row" style="margin-left: 3px; margin-bottom: 10px; ">
+                <div class="col-lg-4">
+                    <label for="leaveType" class="form-label col-form-label col-md-8"><b>Reasons</b></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <input class="form-control parsley-validated" type="text" value="{{leave.comments}}" data-required="true" readonly/>
+                </div>
+            </div>
+            <div class="row" style="margin-left: 3px; margin-bottom: 10px; ">
+                <div class="col-lg-4">
+                </div>
+            </div>
+        </div> 
 
-    <h2>Projects</h2>
-    <ul>
-        {% for project in projects %}
-        <li>{{ project_name }}</li>
-        {% endfor %}
-    </ul>
-</div> {% endcomment %}
+       
+    </div>
+</div>
 {% endblock %}
