@@ -70,21 +70,6 @@
                         <div class="menu-text">Leave Recall</div>
                     </a>
                 </div>
-                {% if perms.LeaveApp.can_see_approved_leave %}
-                <div class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div class="menu-text">Approved leaves</div>
-                    </a>
-                </div>
-                {% endif %}
-                {% if perms.LeaveApp.can_see_approved_leave %}
-                <div class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div class="menu-text">Rejected leaves</div>
-                        {% comment %} <div class="menu-badge">3</div> {% endcomment %}
-                    </a>
-                </div>
-                {% endif %}
             </div>
         </div>
 

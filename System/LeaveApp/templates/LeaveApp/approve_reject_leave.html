@@ -36,6 +36,17 @@
         <p>Resumption Date: {{leave_request.resumption_date}}</p>
         <p>Backstop : {{ subtitute_instance.sub_name }}</p>
         <p>Project : {{project_instance.project_name}}
+        {% comment %} <p>Status: {{ leave_request.get_status_display }}</p> {% endcomment %}
+        {% if subtitute_instance %}
+          <div>
+            <h2>Substitute Details</h2>
+            <p>Substitute Name: {{ subtitute_instance.sub_name }}</p>
+            <p>Project: {{ subtitute_instance.project_id }}</p>
+          </div>
+        {% else %}
+          <p>No substitute assigned for this leave request.</p>
+        {% endif %}
+
         <form method="post">
           {% csrf_token %}
           {{ form.as_p }}

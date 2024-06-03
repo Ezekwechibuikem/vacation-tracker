@@ -96,10 +96,10 @@
                                     <td class="col-lg-4">
                                         <input class="form-control parsley-validated" type="text" id="sub_name" name="sub_name" placeholder="Backstop" autocomplete="off" data-required="true"/>
                                     </td>
-                                    <td class="col-lg-4">
+                                    {% comment %} <td class="col-lg-4">
                                         <button type="button" onclick="addRow()" class="btn btn-sm btn-primary w-60px me-1">Add</button>
                                         <button type="button" onclick="deleteRow()" class="btn btn-sm btn-white w-60px">Delete</button>
-                                    </td>
+                                    </td> {% endcomment %}
                                 </tr>
                             </tbody>
                         </table>
@@ -145,8 +145,8 @@
         
         function deleteRow() {
             var table = document.getElementById("myTable");
-            if(table.rows.length > 1) { // Ensures there's at least one row before deleting
-                table.deleteRow(-1); // Deletes the last row
+            if(table.rows.length > 1) { 
+                table.deleteRow(-1); 
             }
         }
         

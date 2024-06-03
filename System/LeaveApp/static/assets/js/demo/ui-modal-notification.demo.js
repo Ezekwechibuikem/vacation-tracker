@@ -133,7 +133,7 @@ var handleSweetNotification = function() {
 					text: 'Submit',
 					value: true,
 					visible: true,
-					className: 'btn btn-success'
+					className: 'btn btn-primary'
 					//closeModal: true
 				}
 			}
@@ -165,7 +165,7 @@ var handleSweetNotification = function() {
 					text: 'submit',
 					value: true,
 					visible: true,
-					className: 'btn btn-success'
+					className: 'btn btn-primary'
 					// closeModal: true
 				}
 			}

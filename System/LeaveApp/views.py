@@ -2,13 +2,14 @@ from django.contrib.auth.decorators import login_required, permission_required, 
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from .decorators import unauthenticated_user
-from django.db.models import Q
+from django.db.models import Q, F, Max, Min, Window
+from django.db.models.functions import RowNumber
 from django.conf import settings
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 # from django.core.exceptions import PermissionDenied
 from .models import employee, project, subtitute, leave_type, leaveRequest, Supervisor, UserRole
-from .forms import RegisterForm, LeaveForm, EmpForm, SubtituteForm, ProjectForm, TypeForm, LeaveApprovalForm
+from .forms import RegisterForm, LeaveForm, EmpForm, SubtituteForm, ProjectForm, LeaveApprovalForm
 from django.contrib import messages
 
 
@@ -21,19 +22,15 @@ def home(request):
     try:
        employee_instance = employee.objects.get(user_id=user)
     except employee.DoesNotExist:
-        #Redirect the user to a different page
         return redirect('update-emp')
 
     user = request.user
     employee_instance = get_object_or_404(employee, user_id=user)
-    leaves = leaveRequest.objects.filter(emp_id=employee_instance)
+    leaves = leaveRequest.objects.filter(emp_id=employee_instance).order_by(F('date_applied').desc())
     substitutes = subtitute.objects.filter(leaveRequest_id__in=leaves)
     projects = project.objects.filter(subtitute__in=substitutes)
     
-    # Create a list to store leave types applied for
     leave_types_applied_for = []
-
-    # Iterate over each leave request to get its leave type
     for leave in leaves:
         leave_type_applied_for = leave.leave_type_id.type_name
         leave_types_applied_for.append(leave_type_applied_for)
@@ -154,15 +151,21 @@ def create_leave(request):
     context = {'leave_form': leave_form, 'project_form': project_form, 'subtitute_form': subtitute_form, 'leave_types': leave_types}
     return render(request, 'LeaveApp/create-leave.html', context)
 
-
 @login_required(login_url='login')
 def leave_detail(request, leave_id):
     """leave list function"""
     user = request.user
     employee_instance = get_object_or_404(employee, user_id=user)
     leave = get_object_or_404(leaveRequest, pk=leave_id)
-    subtitute_instance = subtitute.objects.get(leaveRequest_id=leave)  
-    project_instance = subtitute_instance.project_id
+    
+    subtitute_instances = subtitute.objects.filter(leaveRequest_id=leave)
+    if subtitute_instances.exists():
+        subtitute_instance = subtitute_instances.first()
+        project_instance = subtitute_instance.project_id
+    else:
+        subtitute_instance = None
+        project_instance = None
+        
     status_update = leaveRequest.objects.get(pk=leave_id)  
     
     context = {'leave': leave,
@@ -188,55 +191,64 @@ def approve_reject_leave(request, leave_request_id):
     supervisor_instances = Supervisor.objects.filter(supervisor_employee=request.user.employee)
 
     if supervisor_instances.exists():
-        
-        supervisor_instance = supervisor_instances.first()
-        if leave_request.supervisor != supervisor_instance:
+        subordinate_employee_ids = [supervisor.subordinate.employee_id for supervisor in supervisor_instances]
+
+        if leave_request.emp_id.employee_id not in subordinate_employee_ids:
             return HttpResponse("You are not authorized to approve/reject this leave request.")
 
         subtitute_instance = subtitute.objects.filter(leaveRequest_id=leave_request).first()
         project_instance = subtitute_instance.project_id
-        
+
         if request.method == 'POST':
             form = LeaveApprovalForm(request.POST)
             if form.is_valid():
                 status = form.cleaned_data['status']
-                sub_comments = form.cleaned_data['sub_comments'] 
-                if status == 'Approved':
-                    leave_request.status = leaveRequest.APPROVED
-                elif status == 'Rejected':
-                    leave_request.status = leaveRequest.REJECTED
+                sub_comments = form.cleaned_data['sub_comments']
 
-                leave_request.sub_comments = sub_comments
-                leave_request.save()
+                if status == 'APPROVED':
+                    leave_request.status = 'APPROVED'
+                    leave_request.sub_comments = sub_comments
+                    leave_request.save()
+                elif status == 'REJECTED':
+                    leave_request.status = 'REJECTED'
+                    leave_request.sub_comments = sub_comments
+                    leave_request.save()
 
-                # return redirect('view_leave_requests')
                 return redirect('index')
         else:
             form = LeaveApprovalForm()
 
-        context = {'leave_request': leave_request, 'form': form, 
-                   'subtitute_instance': subtitute_instance, 'project_instance': project_instance }
+        context = {
+            'leave_request': leave_request,
+            'form': form,
+            'subtitute_instance': subtitute_instance,
+            'project_instance': project_instance
+        }
         return render(request, 'LeaveApp/approve_reject_leave.html', context)
     else:
         return redirect('LeaveApp/dashboard.html')
-
-
+    
+    
 @login_required(login_url='login')
 def view_leave_requests(request):
     supervisor_instances = Supervisor.objects.filter(supervisor_employee=request.user.employee)
+
     if supervisor_instances.exists():
-        supervisor_instance =supervisor_instances.first()
-        pending_requests = leaveRequest.objects.filter(supervisor=supervisor_instance, status='Pending')
-        approved_requests = leaveRequest.objects.filter(supervisor=supervisor_instance, status='Approved')
-        rejected_requests = leaveRequest.objects.filter(supervisor=supervisor_instance, status='Rejected')
-        
-        context = {'pending_requests': pending_requests,
-                'approved_requests': approved_requests,
-                'rejected_requests': rejected_requests,
-                }
+        supervisor_instance = supervisor_instances.first()
+        subordinate_employees = employee.objects.filter(subordinates__in=supervisor_instances)
+        pending_requests = leaveRequest.objects.filter(emp_id__in=subordinate_employees, status='PENDING').order_by('-date_applied')
+        approved_requests = leaveRequest.objects.filter(emp_id__in=subordinate_employees, status='APPROVED').order_by('-date_applied')
+        rejected_requests = leaveRequest.objects.filter(emp_id__in=subordinate_employees, status='REJECTED').order_by('-date_applied')
+
+        context = {
+            'pending_requests': pending_requests,
+            'approved_requests': approved_requests,
+            'rejected_requests': rejected_requests,
+        }
         return render(request, 'LeaveApp/leave_requests.html', context)
     else:
         return redirect('LeaveApp/dashboard.html')
+
 
 @login_required(login_url='login')
 @unauthenticated_user

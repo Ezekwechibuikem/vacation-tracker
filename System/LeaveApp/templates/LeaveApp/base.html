@@ -232,12 +232,17 @@
 				"paging": true,
 				"lengthChange": true,
 				"searching": false,
-				"ordering": true,
 				"info": true,
 				"autoWidth": false,
 				"responsive": true,
+				"columnDefs": [
+					{ "orderable": false, "targets": [0, 1, 2, 4, 5, 6] }, 
+					{ "orderable": true, "targets": [3] },
+					{ "targets": 0, "orderable": false }
+				]
 			});
 		});
+		
 	</script>
 </body>
 </html>

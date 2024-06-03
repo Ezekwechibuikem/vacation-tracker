@@ -21,123 +21,131 @@
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-danger" data-toggle="panel-remove"><i class="fa fa-times"></i></a>
             </div>
         </div>
-        <div class="row" style="margin-top: 20px; margin-left: 10px;">
-            <h1 style="text-align: center; "><b>Public Health Information Surveillance Solution and Systems [PHIS3]</b></h1>
-            <h2 style="text-align: center; background-color: #f0f0f0; padding: 10px; display: inline-block; width: 97.6%; margin-rignt: 10px; margin-left: 10px;">Leave Application Form</h2>
-            <div class="form-group row" style="margin-top: 10px; ">
-                <div class="col-lg-4"">
-                    <input class="form-control parsley-validated" type="text" placeholder="Employee Full Name" data-required="true" readonly/>
-                </div>
-                <div class="col-lg-8">
-                    <input class="form-control parsley-validated" type="text" value="{{ user.first_name }} {{ user.last_name }}" data-required="true" readonly/>
-                </div>
+        <div class="panel-body">
+            <div id="printArea">
+                
+                <table id="tableToPrint" class="table table-striped table-bordered align-middle" style='font-family:"Courier New", Courier, font-size:80%'>
+                    <thead>
+                        
+                        <tr>
+                            <th>Employee Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Employee Full Name</td>
+                            <td>{{ user.first_name }} {{ user.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                        <tr>
+                            <td>Department</td>
+                            <td>{{ employee_instance.department }}</td>
+                        </tr>
+                        <tr>
+                            <td>Unit</td>
+                            <td>{{ employee_instance.unit }}</td>
+                        </tr>
+                        <tr>
+                            <th>Leave Details</th>
+                        </tr>
+            
+                        <tr>
+                            <td>Type of leave</td>
+                            <td>{{ leave.leave_type_id.type_name }}</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>{{ status_update }}</td>
+                        </tr>
+                        <tr>
+                            <td>Date Applied</td>
+                            <td>{{ leave.date_applied }}</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Number of Days</td>
+                            <td>{{ leave.no_of_days }}</td>
+                        </tr>
+                        <tr>
+                            <td>Start Date</td>
+                            <td>{{ leave.start_date }}</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>End Date</td>
+                            <td>{{ leave.end_date }}</td>
+                        </tr>
+                        <tr>
+                            <td>Backstop</td>
+                            <td>{{ subtitute_name }}</td>
+                           
+                        </tr>
+                        <tr>
+                            <td>Project Name</td>
+                            <td>{{ project_name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Reasons</td>
+                            <td>{{ leave.comments }}</td>
+                        </tr>
+                        <tr>
+                            <td>Supervisor's comments</td>
+                            <td>{{ leave.sub_comments }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button onclick="printTable()">Print</button>
             </div>
-            <div class="form-group row" style="margin-top: 10px; ">
-                <div class="col-lg-4">
-                    <input class="form-control parsley-validated" type="text" placeholder="Employee Full Name" data-required="true" readonly/>
-                </div>
-                <div class="col-lg-8">
-                    <input class="form-control parsley-validated" type="text" value="{{ user.email }}" data-required="true" readonly/>
-                </div>
-            </div>
-            <div class="form-group row" style="margin-top: 10px; ">
-                <div class="col-lg-4">
-                    <input class="form-control parsley-validated" type="text" placeholder="Department" data-required="true" readonly style="font-weight: bold;">
-                </div>
-                <div class="col-lg-8">
-                    <input class="form-control parsley-validated" type="text" value="{{ employee_instance.department }}" data-required="true" readonly/>
-                </div>
-            </div>
-            <div class="form-group row" style="margin-top: 10px; ">
-                <div class="col-lg-4">
-                    <input class="form-control parsley-validated" type="text" placeholder="Unit" data-required="true" readonly style="font-weight: bold;">
-                </div>
-                <div class="col-lg-8">
-                    <input class="form-control parsley-validated" type="text" value="{{ employee_instance.unit }}" data-required="true" readonly/>
-                </div>
-            </div>
-            <div class="row" style="margin-left: 3px; ">
-                <div class="col-lg-4">
-                    <label for="leaveType" class="form-label col-form-label col-md-8"><b>Type of leave</b></label>
-                </div>
-                <div class="col-lg-8">
-                    <label for="end_date" class="form-label col-form-label col-md-8"><b>Status</b></label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4">
-                    <input class="form-control parsley-validated" type="text" value="{{ leave.leave_type_id.type_name }}" data-required="true" readonly/>
-                </div>
-                <div class="col-lg-8">
-                    <input class="form-control parsley-validated" type="text" value="{{ status_update }}" data-required="true" readonly/>
-                </div>
-            </div>
-            <div class="row" style="margin-left: 3px; ">
-                <div class="col-lg-4">
-                    <label for="leaveType" class="form-label col-form-label col-md-8"><b>Date Applied</b></label>
-                </div>
-                <div class="col-lg-8">
-                    <label for="end_date" class="form-label col-form-label col-md-8"><b>Number of Days</b></label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4">
-                    <input class="form-control parsley-validated" type="text" value="{{ leave.date_applied }}" data-required="true" readonly/>
-                </div>
-                <div class="col-lg-8">
-                    <input class="form-control parsley-validated" type="text" value="{{ leave.no_of_days }}" data-required="true" readonly/>
-
-                </div>
-            </div>
-            <div class="row" style="margin-left: 3px; ">
-                <div class="col-lg-4">
-                    <label for="leaveType" class="form-label col-form-label col-md-8"><b>Start Date</b></label>
-                </div>
-                <div class="col-lg-8">
-                    <label for="end_date" class="form-label col-form-label col-md-8"><b>End Date</b></label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4">
-                    <input class="form-control parsley-validated" type="text" value="{{ leave.start_date }}" data-required="true" readonly/>
-                </div>
-                <div class="col-lg-8">
-                    <input class="form-control parsley-validated" type="text" value="{{ leave.end_date }}" data-required="true" readonly/>
-                </div>
-            </div>
-            <div class="row" style="margin-left: 3px; ">
-                <div class="col-lg-4">
-                    <label for="leaveType" class="form-label col-form-label col-md-8"><b>Backstop</b></label>
-                </div>
-                <div class="col-lg-8">
-                    <label for="end_date" class="form-label col-form-label col-md-8"><b>Project Nmae</b></label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4">
-                    <input class="form-control parsley-validated" type="text" value="{{subtitute_name}}" data-required="true" readonly/>
-                </div>
-                <div class="col-lg-8">
-                    <input class="form-control parsley-validated" type="text" value="{{project_name}}" data-required="true" readonly/>
-                </div>
-            </div>
-            <div class="row" style="margin-left: 3px; margin-bottom: 10px; ">
-                <div class="col-lg-4">
-                    <label for="leaveType" class="form-label col-form-label col-md-8"><b>Reasons</b></label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <input class="form-control parsley-validated" type="text" value="{{leave.comments}}" data-required="true" readonly/>
-                </div>
-            </div>
-            <div class="row" style="margin-left: 3px; margin-bottom: 10px; ">
-                <div class="col-lg-4">
-                </div>
-            </div>
-        </div> 
-
-       
+        </div>
+    
+        <script>
+            function printTable() {
+                const printArea = document.getElementById('printArea');
+                const tableElement = document.getElementById('tableToPrint');
+        
+                const printWindow = window.open('', '_blank', 'height=600,width=800');
+                const printDoc = printWindow.document;
+        
+                const tableClone = tableElement.cloneNode(true);
+                const styleTags = document.getElementsByTagName('style');
+                const linkTags = document.getElementsByTagName('link');
+        
+                // Remove the date, time, and "about:blank" from the document content
+                const documentContent = tableClone.outerHTML.replace(/(\d+\/\d+\/\d+, \d+:\d+)|about:blank/g, '');
+        
+                printDoc.open();
+                printDoc.write(`
+                    <html>
+                        <head>
+                            <title>LEAVE APPLICATION FORM</title>
+                            <style>
+                                .title {
+                                    font-size: 24px; 
+                                }
+                            </style>
+                            ${Array.from(styleTags).map(tag => tag.outerHTML).join('')}
+                            ${Array.from(linkTags).map(tag => tag.outerHTML).join('')}
+                            
+                        </head>
+                        <body>
+                            ${documentContent}
+                        </body>
+                    </html>
+                `);
+                printDoc.close();
+        
+                 printWindow.print();
+        
+                printWindow.addEventListener('afterprint', () => {
+                    printWindow.close();
+                });
+            }
+        </script>
     </div>
 </div>
 {% endblock %}
+
