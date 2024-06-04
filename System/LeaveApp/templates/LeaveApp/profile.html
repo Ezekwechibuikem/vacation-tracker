@@ -1,6 +1,20 @@
 {% extends 'LeaveApp/base.html' %}
 
 {% block content %}
+<div class="app-content-padding flex-grow-1 overflow-hidden ps" data-scrollbar="true" data-height="100%" style="height: 100%;">
+    <!-- BEGIN breadcrumb -->
+    <ol class="breadcrumb float-xl-end">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="">Profile</a></li>
+        {% comment %} <li class="breadcrumb-item active">Page with Footer</li>  {% endcomment %}
+    </ol>
+    <div class="d-sm-flex align-items-center mb-3">
+        <a href="#" class="btn btn-dark me-2 text-truncate" >
+            <span>Employee Details</span>
+        </a>
+    </div>
+
+    <!-- BEGIN panel -->
     <div class="row">
         <!-- BEGIN col-6 -->
         <div class="col-xl-12">
@@ -14,7 +28,7 @@
                         <div class="col-xl-12 col-lg-12">
                             <!-- BEGIN title -->
                             <div class="mb-3 text-gray-300">
-                                <h2><p><b>Employee Details</b></p></h2>
+                                
                                 <h4><p><b>Email: {{ user.email }}</b></p></h4>
                                 <h4><p><b>Name: {{ user.last_name }} {{ user.first_name }}</b></p></h4>
                                 <h4><p><b>Department: {{ employee_instance.department }}</b></p></h4>
@@ -59,4 +73,7 @@
         <!-- END col-6 -->
     </div>
     <!-- END panel -->
+    <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+	</div>
+</div>
 {% endblock %} 

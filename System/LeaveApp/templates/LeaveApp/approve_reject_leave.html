@@ -6,19 +6,19 @@
   	<!-- BEGIN breadcrumb -->
 		<ol class="breadcrumb float-xl-end">
       <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-			<li class="breadcrumb-item"><a href="">Approveal</a></li>
+			<li class="breadcrumb-item"><a href="">Approval</a></li>
 			<!-- <li class="breadcrumb-item"><a href="javascript:;">Page Options</a></li>
 			<li class="breadcrumb-item active">Page with Footer</li> -->
 		</ol>
 		<div class="d-sm-flex align-items-center mb-3">
 			<a href="#" class="btn btn-dark me-2 text-truncate" >
-				<span>DASHBOARD</span>
+				<span>Approval Page</span>
 			</a>
 		</div>
     <!-- BEGIN panel -->
     <div class="panel panel-inverse">
       <div class="panel-heading">
-        <h4 class="panel-title">Supervisor's Approval Page</h4>
+        <h4 class="panel-title"></h4>
           <h4 class="panel-title"></h4>
           <div class="panel-heading-btn">
               <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
@@ -28,29 +28,71 @@
           </div>
       </div>
       <div class="row" style="margin-top: 20px; margin-left: 10px;">
-        <p>Employee: {{ leave_request.emp_id.user_id.first_name }} {{ leave_request.emp_id.user_id.last_name }}</p>
-        <p>Leave Type: {{ leave_request.leave_type_id.type_name }}</p>
-        <p>Start Date: {{ leave_request.start_date }}</p>
-        <p>End Date: {{ leave_request.end_date }}</p>
-        <p>No of Days: {{ leave_request.no_of_days }}</p>
-        <p>Resumption Date: {{leave_request.resumption_date}}</p>
-        <p>Backstop : {{ subtitute_instance.sub_name }}</p>
-        <p>Project : {{project_instance.project_name}}
-        {% comment %} <p>Status: {{ leave_request.get_status_display }}</p> {% endcomment %}
-        {% if subtitute_instance %}
-          <div>
-            <h2>Substitute Details</h2>
-            <p>Substitute Name: {{ subtitute_instance.sub_name }}</p>
-            <p>Project: {{ subtitute_instance.project_id }}</p>
-          </div>
-        {% else %}
-          <p>No substitute assigned for this leave request.</p>
-        {% endif %}
-
+        <div class="panel-body">
+            <table id="ApprovalTable" class="table table-striped table-bordered align-middle" style='font-family:"Courier New", Courier, font-size:80%'>
+              <thead>
+                  <tr>
+                      <th>Employee Details</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>Employee Full Name</td>
+                      <td>{{ leave_request.emp_id.user_id.first_name }} {{ leave_request.emp_id.user_id.last_name }}</td>
+                  </tr>
+                  <tr>
+                      <td>Leave Type</td>
+                      <td>{{ leave_request.leave_type_id.type_name }}</td>
+                  </tr>
+                  <tr>
+                    <td>Start Date</td>
+                    <td>{{ leave_request.start_date }}</td>
+                  </tr>
+                  <tr>
+                    <td>End Date</td>
+                    <td>{{ leave_request.end_date }}</td>
+                  </tr>
+                  <tr>
+                    <td>Number of Days</td>
+                    <td>{{ leave_request.no_of_days }}</td>
+                  </tr>
+                  <tr>
+                    <td>Resumption Date</td>
+                    <td>{{leave_request.resumption_date}}</td>
+                  </tr>
+                  <tr>
+                    <td>Backstop</td>
+                    <td>{{ subtitute_instance.sub_name }}</td>
+                  </tr>
+                  <tr>
+                    <td>Project</td>
+                    <td>{{project_instance.project_name}}</td>
+                  </tr>
+              </tbody>
+            </table>
+           
+           
         <form method="post">
           {% csrf_token %}
-          {{ form.as_p }}
-          <button type="submit">Submit</button>
+          {% comment %} {{ form.as_p }} {% endcomment %}
+          <div class=" row mb-10px">
+            <label class="form-label col-form-label col-md-2">Status</label>
+            <div class="col-md-10">
+              <select class="form-select" id="status" name="status" data-parsley-required="true" autocomplete="off">
+                <option value="" disabled selected>Please choose</option>
+                {% for status_choice in form.fields.status.choices %}
+                <option value="{{ status_choice.0 }}">{{ status_choice.1 }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="row mb-15px">
+            <label class="form-label col-form-label col-md-2">Example text area</label>
+            <div class="col-md-10">
+              <textarea class="form-control" id="sub_comments" name="sub_comments" rows="3" style="height: 100px;"></textarea>
+            </div>,
+          </div>
+            <button type="submit">Submit</button>
         </form>
       </div>
     </div>
