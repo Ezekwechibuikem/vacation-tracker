@@ -7,4 +7,4 @@ It serves as a central hub for managing various types of leaves, ensuring compli
 
 > For more information about the leave app see below images
 
-file://wsl.localhost/Ubuntu/home/jbventure/django/vacation-tracker/System/LeaveApp/static/assets/images/login.png
+![login](https://github.com/Ezekwechibuikem/vacation-tracker/assets/143010069/c227b7c8-9e98-4e8b-b25a-a8bbf78f9efc)
