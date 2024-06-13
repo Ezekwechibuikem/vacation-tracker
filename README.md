@@ -7,6 +7,6 @@ It serves as a central hub for managing various types of leaves, ensuring compli
 
 > For more information about the leave app see below images
 
-/static/assets/images/login.png
+![Login Page](/static/assets/images/login.png)
 
-/assets/images/apply_leave.png
+![Apply Leave Page](/static/assets/images/apply_leave.png)
