@@ -8,6 +8,3 @@ It serves as a central hub for managing various types of leaves, ensuring compli
 > For more information about the leave app see below images
 
 
-![Login Page](https://raw.githubusercontent.com/Ezekwechibuikem/vacation-tracker/demo/static/assets/images/login.png)
-
-![Apply Leave Page](https://raw.githubusercontent.com/Ezekwechibuikem/vacation-tracker/demo/static/assets/images/apply_leave.png)
